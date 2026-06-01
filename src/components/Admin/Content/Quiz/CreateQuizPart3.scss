@@ -1,0 +1,110 @@
+.create-quiz-part3-container {
+    background-color: #f5f7fa;
+    min-height: 100vh;
+    padding-bottom: 50px;
+
+    // Card bao quanh từng đoạn hội thoại
+    .card-group-conversation {
+        border: none;
+        margin-bottom: 2rem;
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+
+        .group-header {
+            background-color: #0d6efd; // Màu xanh header
+            color: white;
+            padding: 10px 20px;
+            font-weight: bold;
+            border-radius: 8px 8px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .group-body {
+            padding: 20px;
+        }
+    }
+
+    // Card cho từng câu hỏi nhỏ
+    .question-card {
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        background-color: #fff;
+        height: 100%;
+        
+        .q-header {
+            background-color: #f8f9fa;
+            padding: 8px 10px;
+            border-bottom: 1px solid #e0e0e0;
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #555;
+        }
+
+        .q-body {
+            padding: 15px;
+
+            // Input câu hỏi to
+            input.question-input {
+                font-weight: 600;
+                margin-bottom: 15px;
+                border: 1px solid #ced4da;
+                &:focus { border-color: #0d6efd; background-color: #f0f8ff; }
+            }
+        }
+    }
+
+    // --- STYLE CHO Ô ĐÁP ÁN (GIỐNG ẢNH BẠN GỬI) ---
+    .option-item {
+        display: flex;
+        align-items: stretch; // Để chiều cao bằng nhau
+        margin-bottom: 10px;
+        
+        // Phần nút chữ cái A, B, C, D
+        .btn-option-label {
+            width: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            border: 1px solid #ced4da;
+            border-right: none; // Bỏ viền phải để nối liền input
+            border-radius: 6px 0 0 6px; // Bo góc trái
+            background-color: #e9ecef; // Màu xám mặc định
+            color: #495057;
+            transition: all 0.2s;
+
+            &:hover {
+                background-color: #dde0e3;
+            }
+
+            // Khi được chọn (Active) -> Màu xanh lá giống ảnh
+            &.active {
+                background-color: #198754 !important; 
+                color: white !important;
+                border-color: #198754;
+            }
+        }
+
+        // Phần ô input
+        input.form-control {
+            border-radius: 0 6px 6px 0; // Bo góc phải
+            &:focus {
+                z-index: 2;
+            }
+        }
+    }
+
+    // Vùng nhập ảnh Graphic
+    .graphic-area {
+        background-color: #fff3cd;
+        border: 1px dashed #ffc107;
+        padding: 15px;
+        border-radius: 6px;
+        margin-bottom: 20px;
+    }
+}

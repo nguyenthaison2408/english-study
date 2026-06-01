@@ -1,0 +1,115 @@
+$blue: #0096fa;
+$green: #2ecf5e;
+$orange: #e65100; // Part 7
+$bg: #eef1f4;
+
+.full-test-page {
+  height: 100vh; display: flex; flex-direction: column; background-color: $bg; font-family: 'Segoe UI', sans-serif; overflow: hidden;
+
+  // HEADER
+  .test-header {
+    flex-shrink: 0; height: 60px; background: white; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 1px 3px rgba(0,0,0,0.1); z-index: 10;
+    .header-left { display: flex; align-items: center; gap: 15px; font-weight: 700; color: #333; .back-btn {color: #333;}}
+    .header-right { display: flex; align-items: center; gap: 20px; .timer {color: #ff4d4f; font-weight: bold;} .icon-btn {cursor: pointer;}}
+  }
+
+  // BODY
+  .test-body {
+    flex: 1; overflow: hidden; padding: 20px; position: relative; display: flex; justify-content: center;
+
+    // Container của Slide Animation
+    .slide-container {
+        width: 100%; max-width: 1400px; height: 100%; position: absolute;
+        display: flex; justify-content: center;
+        
+        // --- STYLE CHUNG CHO CÁC HEADER ---
+        .panel-header {
+            padding: 12px 15px; color: white; font-weight: 600; display: flex; justify-content: space-between;
+            &.green-header { background: $green; }
+            &.blue-header { background: $blue; }
+            &.orange-header { background: $orange; }
+        }
+
+        // --- GIAO DIỆN PART 1 (Ảnh + Câu hỏi) ---
+        .layout-part1 {
+            display: flex; gap: 20px; width: 100%; max-width: 1000px; height: fit-content;
+            .image-box { 
+                flex: 1; background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+                img { width: 100%; display: block; }
+            }
+            .question-box { flex: 1; }
+        }
+
+        // --- GIAO DIỆN PART 2, 5 (1 Câu hỏi giữa màn hình) ---
+        .layout-single-center {
+            width: 100%; max-width: 850px; height: fit-content;
+        }
+
+        // --- GIAO DIỆN SPLIT (Part 3, 4, 6, 7) ---
+        .layout-split {
+            width: 100%; height: 100%; display: flex; gap: 20px; align-items: flex-start;
+            
+            // Cột Trái (Graphic, Passage)
+            .left-panel {
+                flex: 1.1; height: 100%; background: white; border-radius: 8px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+                .graphic-img { width: 100%; padding: 10px; object-fit: contain; }
+                .passage-content { padding: 20px; overflow-y: auto; font-size: 1rem; line-height: 1.6; text-align: justify; flex: 1;}
+            }
+
+            // Cột Phải (Group Questions)
+            .right-panel-group {
+                flex: 0.9; height: 100%;
+                .group-card {
+                    height: 100%; background: white; border-radius: 8px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+                    .card-scroll-content { padding: 20px; overflow-y: auto; flex: 1; }
+                }
+            }
+
+            // Nếu Part 3/4 không có hình thì căn giữa cột phải
+            &:not(.has-graphic) .right-panel-group {
+               margin: 0 auto; max-width: 800px; flex: none; width: 100%; height: auto; max-height: 100%;
+               .group-card { height: auto; }
+            }
+        }
+
+        // --- STYLE CHUNG: OPTION LIST ---
+        .options-list {
+            display: flex; flex-direction: column; gap: 10px; margin-top: 10px;
+            .option-item {
+                display: flex; align-items: center; gap: 12px; padding: 10px 15px; border-radius: 6px; border: 1px solid #eee; cursor: pointer; transition: 0.2s; background: #fafafa;
+                &:hover { background: #f0f8ff; border-color: $blue; }
+                &.selected { background: rgba($blue, 0.1); border-color: $blue; .radio-circle { border-color: $blue; .dot { background: $blue; transform: scale(1);} } }
+                .radio-circle { width: 18px; height: 18px; border: 2px solid #ccc; border-radius: 50%; display: flex; justify-content: center; align-items: center; flex-shrink: 0; background: white; .dot { width: 8px; height: 8px; border-radius: 50%; transition: 0.2s; transform: scale(0); } }
+            }
+        }
+
+        // --- STYLE CHUNG: QUESTION ITEM ---
+        .question-card-single {
+            background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            .panel-header { padding: 20px; font-size: 1.1rem; }
+            .options-list { padding: 20px; }
+        }
+        .question-item-block {
+            margin-bottom: 10px;
+            .q-title { font-weight: 600; color: $blue; margin-bottom: 10px; .q-num { background: $blue; color: white; padding: 2px 5px; border-radius: 4px; margin-right: 5px; font-size: 0.9rem;} }
+            .divider { height: 1px; background: #eee; margin: 20px 0; }
+        }
+    }
+
+    // Sidebar
+    .question-palette {
+        width: 280px; background: white; border-radius: 8px; margin-left: 20px; height: 100%; overflow-y: auto; padding: 15px; position: sticky; top: 0; z-index: 20; box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        .palette-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 5px; .p-item { aspect-ratio: 1; border: 1px solid #ddd; display: flex; justify-content: center; align-items: center; font-size: 0.8rem; cursor: pointer; border-radius: 4px; &.filled { background: $blue; color: white; border-color: $blue;} } }
+    }
+  }
+
+  // FOOTER
+  .test-footer {
+    flex-shrink: 0; background: white; border-top: 1px solid #eee; padding: 10px 30px; z-index: 20;
+    .nav-row {
+        display: flex; justify-content: space-between; align-items: center; max-width: 1400px; margin: 0 auto;
+        .nav-btn { padding: 8px 20px; border-radius: 6px; border: 1px solid #ddd; background: white; cursor: pointer; display: flex; align-items: center; gap: 8px; &:hover:not(:disabled) { background: #f0f8ff; color: $blue; } &:disabled { opacity: 0.5; } }
+        .audio-control-placeholder { font-weight: 500; color: #666; }
+    }
+  }
+}

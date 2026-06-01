@@ -1,0 +1,214 @@
+// Biến màu sắc
+$green: #2ecf5e;
+$blue: #0096fa;
+$purple: #7e57c2;
+$red: #ff4d4f;
+$bg-color: #f0f2f5;
+
+.quiz-page {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: $bg-color;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+  // Header
+  .quiz-header {
+    height: 60px;
+    background: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    z-index: 10;
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      font-weight: 600;
+      font-size: 1.1rem;
+      .back-icon { color: #333; cursor: pointer; }
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      
+      .timer {
+        color: $red;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .icon-btn { font-size: 1.2rem; color: #555; cursor: pointer; }
+      .sidebar-toggle { color: $blue; cursor: pointer; font-weight: 500; font-size: 0.9rem;}
+    }
+  }
+
+  // Body Content
+  .quiz-body {
+    flex: 1;
+    display: flex;
+    padding: 20px;
+    gap: 20px;
+    overflow-y: auto;
+    padding-bottom: 130px; // Chừa chỗ cho footer
+
+    // Style chung Header mỗi cột
+    .panel-header {
+      padding: 10px 15px;
+      color: white;
+      font-weight: 600;
+      border-radius: 8px 8px 0 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      
+      &.green-header { background-color: $green; }
+      &.blue-header { background-color: $blue; }
+      &.purple-header { background-color: $purple; }
+    }
+
+    // Cột 1: Ảnh
+    .column-image {
+      flex: 1.2;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      
+      .image-wrapper {
+        padding: 10px;
+        img { width: 100%; height: auto; border-radius: 4px; display: block;}
+      }
+    }
+
+    // Cột 2: Câu hỏi
+    .column-question {
+      flex: 1.5;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+
+      .answers-list {
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+
+        .answer-item {
+          display: flex;
+          align-items: flex-start;
+          gap: 12px;
+          padding: 12px;
+          border-radius: 8px;
+          cursor: pointer;
+          transition: 0.2s;
+
+          &:hover { background-color: #f9f9f9; }
+
+          .radio-circle {
+            width: 20px; height: 20px; border: 2px solid #ccc; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; margin-top: 2px;
+            .dot { width: 10px; height: 10px; background: currentColor; border-radius: 50%; }
+          }
+          
+          .answer-text {
+            flex: 1;
+            .eng-text { font-size: 1rem; color: #333; margin-bottom: 4px;}
+            .vie-text { font-size: 0.85rem; color: $blue; }
+          }
+
+          // Trạng thái: Chọn sai
+          &.selected-wrong {
+            background-color: rgba($red, 0.08);
+            .eng-text { color: $red; }
+            .radio-circle { border-color: $red; color: $red; }
+            .status-icon.wrong { color: $red; }
+          }
+          
+          // Trạng thái: Đáp án đúng (khi đã chọn sai)
+          &.show-correct-hint {
+            .eng-text { color: $green; font-weight: 500; }
+            .radio-circle { border-color: $green; }
+          }
+
+           // Trạng thái: Chọn đúng
+           &.selected-correct {
+             background-color: rgba($green, 0.08);
+             .eng-text { color: $green; }
+             .radio-circle { border-color: $green; color: $green; }
+             .status-icon.correct { color: $green; }
+           }
+        }
+      }
+    }
+
+    // Cột 3: Sidebar
+    .column-sidebar {
+      flex: 0.8;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+
+      .sidebar-buttons {
+        display: flex; gap: 10px;
+        button {
+          flex: 1; padding: 8px; border-radius: 20px; font-weight: 600; cursor: pointer;
+        }
+        .btn-outline { background: white; border: 1px solid $green; color: $green; }
+        .btn-fill { background: $green; border: none; color: white; }
+      }
+
+      .comment-box {
+        background: white; border-radius: 8px; flex: 1;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        .comment-content { padding: 15px; color: #777; font-size: 0.9rem; }
+      }
+    }
+  }
+
+  // Footer Audio
+  .quiz-footer {
+    position: fixed; bottom: 0; left: 0; right: 0;
+    background: white; border-top: 1px solid #eee;
+    padding: 10px 30px; z-index: 20;
+
+    .audio-row-top {
+      display: flex; align-items: center; gap: 20px; margin-bottom: 8px;
+      .audio-controls {
+        display: flex; align-items: center; gap: 15px;
+        .control-small { color: #888; cursor: pointer; font-size: 0.9rem; }
+        .btn-play { background: none; border: none; font-size: 1.2rem; cursor: pointer; width: 30px;}
+      }
+      .audio-progress {
+        flex: 1; display: flex; align-items: center; gap: 10px;
+        input[type=range] { flex: 1; height: 4px; accent-color: $blue; cursor: pointer;}
+        .time-tag { background: $blue; color: white; padding: 2px 6px; border-radius: 4px; font-size: 0.75rem;}
+      }
+      .speed-text { font-size: 0.85rem; color: #666; cursor: pointer;}
+    }
+
+    .audio-row-bottom {
+      display: flex; justify-content: space-between; align-items: center;
+      padding-top: 5px; border-top: 1px solid #f9f9f9;
+      .nav-arrow { background: none; border: none; cursor: pointer; font-size: 1rem; color: #444;}
+      .center-icons {
+        display: flex; gap: 30px; color: #666; cursor: pointer;
+        & > *:hover { color: $blue; }
+      }
+    }
+  }
+}
+
+// Mobile Responsive
+@media (max-width: 900px) {
+  .quiz-body {
+    flex-direction: column;
+    .column-sidebar { display: none; }
+    .column-image, .column-question { flex: none; width: 100%; }
+  }
+}

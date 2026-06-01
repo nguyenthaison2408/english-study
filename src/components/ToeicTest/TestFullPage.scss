@@ -1,0 +1,132 @@
+// Màu sắc
+$green-primary: #198754; // Màu xanh lá đậm header
+$bg-color: #f3f6f9;      // Màu nền xám nhạt
+$tag-bg: #d1e7dd;        // Màu nền tag 2025
+$tag-text: #0f5132;      // Màu chữ tag 2025
+$gold: #ffc107;          // Màu vương miện
+
+.test-full-page {
+  background-color: $bg-color;
+  min-height: 100vh;
+  font-family: 'Inter', sans-serif;
+
+  // Header xanh lá
+  .test-header {
+    background-color: $green-primary;
+    padding: 15px 20px;
+    color: white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+
+    .header-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+
+      .back-btn {
+        color: white;
+        font-size: 1.2rem;
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        &:hover { opacity: 0.8; }
+      }
+
+      .header-title {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin: 0;
+      }
+    }
+  }
+
+  // Grid chứa bài thi
+  .test-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    // Tăng padding trên dưới lên 50px cho thoáng
+    padding: 50px 20px;
+
+    .test-grid {
+      display: grid;
+      // Tăng minmax từ 300px lên 320px để card to hơn
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); 
+      // Tăng gap từ 20px lên 40px để các card xa nhau ra
+      gap: 40px; 
+    }
+  }
+
+  // Card bài thi
+  .test-card {
+    background: white;
+    border-radius: 12px;
+    padding: 24px; // Tăng padding trong card một chút cho đẹp
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 140px; // Tăng chiều cao lên chút cho cân đối với độ rộng mới
+    transition: transform 0.2s;
+    cursor: pointer;
+
+    &:hover {
+      transform: translateY(-5px); // Bay cao hơn chút khi hover
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    }
+
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+
+      .test-name {
+        font-size: 1.2rem; // Chữ to hơn chút
+        font-weight: 700;
+        color: #333;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        .icon-crown {
+          color: $gold;
+          font-size: 1.1rem;
+        }
+      }
+
+      .icon-history {
+        color: #999;
+        font-size: 1.2rem;
+      }
+    }
+
+    .card-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between; // Đẩy 2 thành phần sang 2 bên
+      gap: 15px;
+
+      .tag-format {
+        background-color: $tag-bg;
+        color: $tag-text;
+        padding: 6px 12px;
+        border-radius: 6px;
+        font-size: 0.9rem;
+        font-weight: 600;
+      }
+
+      .status {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: #666;
+        font-size: 0.95rem;
+
+        .icon-list {
+          font-size: 0.9rem;
+        }
+      }
+    }
+  }
+}

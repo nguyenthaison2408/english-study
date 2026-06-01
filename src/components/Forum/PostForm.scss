@@ -1,0 +1,242 @@
+// src/components/Forum/PostForm.scss
+
+// --- VARIABLES (Đồng bộ với Forum theme) ---
+$primary: #4F46E5;
+$primary-dark: #4338CA;
+$danger: #EF4444;
+$success: #10B981;
+$warning: #F59E0B;
+$text-dark: #1F2937;
+$text-gray: #6B7280;
+$border-color: #E5E7EB;
+$bg-gray: #F3F4F6;
+$radius-lg: 16px;
+$radius-full: 9999px;
+$shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+$shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+$transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+
+.post-form-container {
+  background: white;
+  border-radius: $radius-lg;
+  padding: 24px;
+  box-shadow: $shadow-md;
+  margin-bottom: 32px;
+  border: 1px solid $border-color;
+  animation: slideDown 0.3s ease-out;
+}
+
+// --- HEADER ---
+.post-form-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid $border-color;
+
+  .post-form-title {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: $text-dark;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    i {
+      color: $primary;
+    }
+  }
+
+  .btn-close-form {
+    background: transparent;
+    border: none;
+    color: $text-gray;
+    font-size: 1.25rem;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 50%;
+    transition: $transition;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+      background: $bg-gray;
+      color: $danger;
+      transform: rotate(90deg);
+    }
+  }
+}
+
+// --- FORM GROUPS ---
+.post-form {
+  .form-group {
+    margin-bottom: 20px;
+
+    .form-label {
+      display: block;
+      font-weight: 600;
+      color: $text-dark;
+      margin-bottom: 8px;
+      font-size: 0.95rem;
+
+      .required {
+        color: $danger;
+        margin-left: 4px;
+      }
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 12px 16px;
+      font-size: 1rem;
+      border: 2px solid $border-color;
+      border-radius: 12px;
+      transition: $transition;
+      font-family: inherit;
+
+      &:focus {
+        outline: none;
+        border-color: $primary;
+        box-shadow: 0 0 0 4px rgba($primary, 0.1);
+      }
+
+      &.is-invalid {
+        border-color: $danger;
+        &:focus {
+          box-shadow: 0 0 0 4px rgba($danger, 0.1);
+        }
+      }
+
+      &.is-valid {
+        border-color: $success;
+      }
+
+      &:disabled {
+        background: $bg-gray;
+        cursor: not-allowed;
+      }
+    }
+
+    textarea.form-control {
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    .invalid-feedback {
+      color: $danger;
+      font-size: 0.875rem;
+      margin-top: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .form-text {
+      font-size: 0.8rem;
+      color: $text-gray;
+      margin-top: 6px;
+      
+      i { margin-right: 4px; }
+    }
+  }
+}
+
+// --- IMAGE PREVIEW ---
+.image-preview {
+  margin-bottom: 24px;
+  background: $bg-gray;
+  padding: 16px;
+  border-radius: 12px;
+
+  .preview-wrapper {
+    width: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid $border-color;
+
+    img {
+      width: 100%;
+      height: auto;
+      max-height: 400px;
+      object-fit: cover;
+      display: block;
+    }
+  }
+}
+
+// --- ACTIONS ---
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 32px;
+  padding-top: 20px;
+  border-top: 1px solid $border-color;
+
+  button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    border-radius: $radius-full;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: $transition;
+    border: none;
+
+    &:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
+  }
+
+  .btn-cancel {
+    background: white;
+    color: $text-gray;
+    border: 1px solid $border-color;
+
+    &:hover:not(:disabled) {
+      background: $bg-gray;
+      color: $text-dark;
+      border-color: darken($border-color, 10%);
+    }
+  }
+
+  .btn-submit {
+    background: $primary;
+    color: white;
+    box-shadow: 0 4px 12px rgba($primary, 0.25);
+
+    &:hover:not(:disabled) {
+      background: $primary-dark;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba($primary, 0.35);
+    }
+  }
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+// Responsive
+@media (max-width: 576px) {
+  .post-form-container {
+    padding: 16px;
+    border-radius: 0; // Full width on mobile
+  }
+
+  .form-actions {
+    flex-direction: column-reverse;
+    
+    button {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+}

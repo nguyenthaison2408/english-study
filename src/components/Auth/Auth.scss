@@ -1,0 +1,187 @@
+/* ============================
+   RESET
+============================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+}
+
+/* ============================
+   AUTH CONTAINER
+============================== */
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(135deg, #6a11cb, #2575fc);
+  padding: 20px;
+}
+
+/* ============================
+   AUTH BOX
+============================== */
+.auth-box {
+  width: 400px;
+  padding: 45px 40px;
+  border-radius: 28px;
+  text-align: center;
+
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(20px);
+
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0px 10px 35px rgba(0, 0, 0, 0.3);
+
+  animation: fadeIn 0.6s ease;
+
+  h2 {
+    margin-bottom: 25px;
+    color: #fff;
+    font-size: 30px;
+    font-weight: 700;
+  }
+}
+
+/* ============================
+   INPUT GROUP
+============================== */
+.input-group {
+  position: relative;
+  margin-bottom: 28px;
+
+  input {
+    width: 100%;
+    padding: 18px 16px;
+    border: 2px solid rgba(255, 255, 255, 0.6);
+    border-radius: 12px;
+
+    background: rgba(255, 255, 255, 0.95);
+    color: #000;
+    font-size: 16px;
+    font-weight: 600;
+
+    outline: none;
+    transition: 0.25s ease;
+
+    /* Cho placeholder hiện bình thường */
+    &::placeholder {
+      color: #666;
+      opacity: 1;
+    }
+
+    &:focus {
+      border-color: #fff;
+      background: #fff;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
+      transform: translateY(-1px);
+    }
+
+    /* Khi focus hoặc có text → label nhỏ lại */
+    &:focus + label,
+    &:not(:placeholder-shown) + label {
+      top: -10px;
+      left: 14px;
+      font-size: 12px;
+      background: rgba(255, 255, 255, 0.9);
+      padding: 0 6px;
+      font-weight: 700;
+      color: #000;
+    }
+  }
+
+  /* LABEL RÕ RÀNG – ĐEN – ĐẬM */
+  label {
+    position: absolute;
+    top: 14px;
+    left: 18px;
+
+    color: #000 !important;
+    font-size: 16px;
+    font-weight: 700;
+
+    pointer-events: none;
+    transition: 0.25s ease;
+  }
+}
+
+/* ============================
+   ERROR MESSAGE
+============================== */
+.error-message {
+  color: #ff3838;
+  margin-bottom: 12px;
+  font-size: 20px; 
+  font-weight: 800;
+  text-align: left;
+}
+
+/* ============================
+   BUTTON
+============================== */
+.btn {
+  width: 100%;
+  padding: 14px 0;
+
+  border: none;
+  border-radius: 18px;
+
+  font-size: 17px;
+  font-weight: 700;
+  color: #fff;
+  cursor: pointer;
+
+  background: linear-gradient(90deg, #00c6ff, #0072ff);
+  box-shadow: 0 5px 18px rgba(0, 115, 255, 0.4);
+
+  transition: 0.3s ease;
+
+  &:hover {
+    background: linear-gradient(90deg, #0072ff, #00c6ff);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 22px rgba(0, 115, 255, 0.6);
+  }
+}
+
+/* ============================
+   SWITCH TEXT
+============================== */
+.switch-text {
+  margin-top: 20px;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+
+  a {
+    color: #000;
+    font-weight: 700;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+/* ============================
+   ANIMATION
+============================== */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(15px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ============================
+   RESPONSIVE
+============================== */
+@media (max-width: 480px) {
+  .auth-box {
+    width: 100%;
+    padding: 35px 25px;
+  }
+}

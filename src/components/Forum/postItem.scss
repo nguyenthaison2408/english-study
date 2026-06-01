@@ -1,0 +1,394 @@
+// --- Variables (Đồng bộ với Forum.scss) ---
+$primary-color: #4F46E5;
+$primary-light: #EEF2FF;
+$secondary-color: #EC4899; // Dùng cho Like
+$text-main: #1F2937;
+$text-secondary: #6B7280;
+$border-radius: 20px;
+$bg-comment: #F3F4F6;
+
+// --- Post Item Styles ---
+.post-item {
+  background: white;
+  border-radius: $border-radius;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03); // Shadow rất nhẹ mặc định
+  margin-bottom: 2rem;
+  overflow: visible; // Để dropdown hoặc shadow không bị cắt
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(0,0,0,0.03);
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 15px 30px -5px rgba(0, 0, 0, 0.1);
+  }
+
+  // === 1. HEADER SECTION ===
+  .post-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 20px 25px 10px;
+
+    .post-author {
+      display: flex;
+      gap: 15px;
+      align-items: center;
+
+      .post-avatar {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid white;
+        box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        cursor: pointer;
+        transition: transform 0.2s;
+        
+        &:hover { transform: scale(1.05); }
+      }
+
+      .post-author-info {
+        display: flex;
+        flex-direction: column;
+
+        .post-author-name {
+          font-weight: 700;
+          color: $text-main;
+          font-size: 1rem;
+          cursor: pointer;
+          &:hover { color: $primary-color; text-decoration: underline; }
+        }
+
+        .post-date {
+          font-size: 0.85rem;
+          color: $text-secondary;
+          margin-top: 2px;
+        }
+      }
+    }
+
+    // Edit/Delete Buttons (Ghost Style)
+    .post-action-buttons {
+      display: flex;
+      gap: 8px;
+
+      button {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 12px;
+        border: 1px solid transparent;
+        border-radius: 12px;
+        background: transparent;
+        font-size: 0.85rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s;
+        color: $text-secondary;
+
+        &:hover { background: $primary-light; }
+
+        &.btn-edit:hover { color: $primary-color; }
+        
+        &.btn-delete:hover { 
+          background: #FEF2F2;
+          color: #EF4444; 
+        }
+
+        &:disabled { opacity: 0.5; cursor: default; }
+      }
+    }
+  }
+
+  // === 2. CONTENT SECTION ===
+  .post-content {
+    padding: 5px 25px 15px;
+
+    .post-title {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #111;
+      margin-bottom: 12px;
+      line-height: 1.4;
+    }
+
+    .post-text {
+      font-size: 1rem;
+      color: #374151;
+      line-height: 1.7;
+      white-space: pre-wrap;
+      word-break: break-word;
+      margin-bottom: 15px;
+    }
+
+    .post-image-wrapper {
+      margin-top: 15px;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid #f3f4f6;
+
+      .post-image {
+        width: 100%;
+        max-height: 500px;
+        object-fit: cover;
+        display: block;
+        transition: transform 0.3s;
+        &:hover { transform: scale(1.01); }
+      }
+    }
+  }
+
+  // === 3. STATS & DIVIDER ===
+  .post-stats {
+    display: flex;
+    justify-content: space-between; // Tách like và comment ra 2 bên nếu muốn, hoặc để gap
+    gap: 20px;
+    padding: 10px 25px;
+    font-size: 0.9rem;
+    color: $text-secondary;
+    border-bottom: 1px solid #F3F4F6; // Divider tích hợp
+
+    .post-stat-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      i { color: $primary-color; }
+      &:hover { text-decoration: underline; cursor: pointer; }
+    }
+  }
+
+  // === 4. INTERACTION BAR (Like/Comment Buttons) ===
+  .post-interaction-bar {
+    display: flex;
+    padding: 8px 15px;
+    gap: 10px;
+
+    .btn-interaction {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px;
+      border: none;
+      border-radius: 12px;
+      background: transparent;
+      color: $text-secondary;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.2s;
+
+      i { font-size: 1.1rem; transition: transform 0.2s; }
+
+      &:hover:not(:disabled) {
+        background: $primary-light;
+        color: $primary-color;
+        i { transform: scale(1.1); }
+      }
+
+      // Active Like State
+      &.active {
+        color: $secondary-color;
+        background: rgba($secondary-color, 0.05); // Nền hồng nhạt
+        
+        i { 
+          color: $secondary-color; 
+          animation: likeBounce 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+      }
+
+      &:disabled { opacity: 0.6; cursor: not-allowed; }
+    }
+  }
+
+  // === 5. COMMENT FORM ===
+  .comment-form {
+    display: flex;
+    gap: 12px;
+    padding: 15px 25px 5px; // Giảm padding bottom
+    align-items: flex-start;
+    animation: fadeIn 0.3s ease;
+
+    .comment-form-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .comment-form-input-wrapper {
+      flex: 1;
+      background: $bg-comment;
+      border-radius: 20px; // Pill shape
+      padding: 5px 15px 5px 5px;
+      transition: background 0.2s;
+
+      &:focus-within {
+        background: white;
+        box-shadow: 0 0 0 2px $primary-light, 0 2px 8px rgba(0,0,0,0.05);
+      }
+
+      .comment-form-input {
+        width: 100%;
+        padding: 10px 10px;
+        border: none;
+        background: transparent;
+        font-size: 0.95rem;
+        outline: none;
+        color: $text-main;
+
+        &::placeholder { color: #9CA3AF; }
+      }
+
+      .comment-form-actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 8px;
+        padding: 5px;
+
+        button {
+          padding: 6px 14px;
+          border-radius: 20px;
+          font-size: 0.85rem;
+          font-weight: 600;
+          border: none;
+          cursor: pointer;
+          transition: all 0.2s;
+          display: flex;
+          align-items: center;
+          gap: 5px;
+
+          &.btn-cancel {
+            background: transparent;
+            color: $text-secondary;
+            &:hover { background: #E5E7EB; }
+          }
+
+          &.btn-submit {
+            background: $primary-color;
+            color: white;
+            box-shadow: 0 2px 5px rgba($primary-color, 0.3);
+            &:hover:not(:disabled) { 
+              background: darken($primary-color, 5%); 
+              transform: translateY(-1px);
+            }
+            &:disabled { background: #D1D5DB; box-shadow: none; }
+          }
+        }
+      }
+    }
+  }
+
+  // === 6. COMMENTS LIST ===
+  .post-comments-section {
+    padding: 15px 25px 25px;
+    
+    .comments-list {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-top: 10px;
+    }
+
+    .comment-item {
+      display: flex;
+      gap: 12px;
+      animation: slideDown 0.3s ease;
+
+      .comment-avatar {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-top: 4px;
+      }
+
+      .comment-content {
+        background: $bg-comment;
+        padding: 10px 15px;
+        border-radius: 18px;
+        border-top-left-radius: 4px; // Hiệu ứng bong bóng chat
+        flex: 1;
+
+        .comment-header {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          margin-bottom: 4px;
+
+          .comment-author-name {
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: $text-main;
+          }
+
+          .comment-date {
+            font-size: 0.75rem;
+            color: $text-secondary;
+          }
+        }
+
+        .comment-text {
+          font-size: 0.95rem;
+          color: #4B5563;
+          line-height: 1.5;
+        }
+      }
+    }
+
+    .btn-toggle-comments {
+      width: 100%;
+      margin-top: 15px;
+      padding: 8px;
+      background: transparent;
+      border: none;
+      color: $primary-color;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      border-radius: 10px;
+      transition: background 0.2s;
+
+      &:hover { background: $primary-light; }
+    }
+  }
+
+  // === RESPONSIVE ===
+  @media (max-width: 768px) {
+    border-radius: 0; // Mobile full width thường không bo góc hoặc bo ít
+    box-shadow: none;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 10px;
+
+    .post-header, .post-content, .post-stats, .post-interaction-bar, .comment-form, .post-comments-section {
+      padding-left: 15px;
+      padding-right: 15px;
+    }
+
+    .post-action-buttons button span { display: none; } // Ẩn chữ Edit/Delete trên mobile
+  }
+}
+
+// === ANIMATIONS ===
+@keyframes likeBounce {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.4); }
+  100% { transform: scale(1); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}

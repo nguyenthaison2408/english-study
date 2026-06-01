@@ -1,0 +1,162 @@
+.take-exam-part7 {
+    background-color: #f3f4f6;
+    min-height: 100vh;
+    padding-bottom: 60px;
+
+    .exam-header {
+        background-color: #ffffff;
+        border-bottom: 1px solid #e0e0e0;
+        z-index: 1020;
+    }
+
+    .timer-box {
+        font-family: 'Roboto Mono', monospace;
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #2c3e50;
+        background: #e9ecef;
+        padding: 6px 15px;
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        
+        &.danger {
+            color: #dc3545;
+            background: #fadbd8;
+        }
+    }
+
+    // --- Passage Group Style ---
+    .passage-group {
+        border-radius: 8px;
+        overflow: hidden;
+        border: 1px solid #e5e7eb !important;
+
+        .passage-col {
+            background-color: #f8f9fa;
+            position: relative; // Để sticky hoạt động bên trong
+
+            // QUAN TRỌNG: Giúp bài đọc trượt theo khi scroll câu hỏi
+            .sticky-content {
+                position: sticky;
+                top: 70px; // Cách header một chút
+                max-height: calc(100vh - 100px); // Chiều cao tối đa bằng màn hình trừ header
+                overflow-y: auto; // Nếu bài đọc quá dài thì scroll riêng bài đọc
+                
+                // Tùy chỉnh thanh scroll cho đẹp
+                &::-webkit-scrollbar { width: 6px; }
+                &::-webkit-scrollbar-track { background: #f1f1f1; }
+                &::-webkit-scrollbar-thumb { background: #c1c1c1; border-radius: 3px;}
+            }
+
+            img {
+                max-width: 100%;
+                height: auto;
+                background: white;
+            }
+
+            .passage-text-content {
+                font-family: 'Times New Roman', Times, serif; // Font chuẩn báo chí/tài liệu
+                font-size: 1.1rem;
+                line-height: 1.6;
+                color: #212529;
+                background: white;
+                padding: 25px;
+                border: 1px solid #dee2e6;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            }
+        }
+
+        .questions-col {
+            .individual-question {
+                &:last-child {
+                    margin-bottom: 0 !important;
+                    .divider-dashed { display: none; }
+                }
+                
+                &.is-answered {
+                   .question-number-badge {
+                       background-color: #198754; 
+                       color: white;
+                       border-color: #198754;
+                   }
+                }
+            }
+
+            .question-number-badge {
+                min-width: 28px;
+                height: 28px;
+                background-color: #f3f4f6;
+                border: 1px solid #d1d5db;
+                border-radius: 50%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: 0.85rem;
+                font-weight: 700;
+                color: #4b5563;
+                flex-shrink: 0;
+            }
+            
+            .question-text {
+                font-weight: 600;
+                font-size: 1rem;
+            }
+
+            .divider-dashed {
+                border-top: 1px dashed #e5e7eb;
+                margin-top: 20px;
+                margin-bottom: 0;
+                opacity: 0.7;
+            }
+
+            // --- Option Style (Giống các Part trước) ---
+            .option-item {
+                cursor: pointer;
+                border: 1px solid transparent;
+                transition: all 0.15s ease;
+                background-color: #ffffff;
+                border: 1px solid #f3f4f6;
+
+                &:hover {
+                    background-color: #f9fafb;
+                    border-color: #d1d5db;
+                }
+
+                &.selected {
+                    background-color: #eff6ff;
+                    border: 1px solid #bfdbfe;
+                    .option-text {
+                        color: #1d4ed8;
+                        font-weight: 600;
+                    }
+                }
+
+                .option-radio {
+                    width: 26px;
+                    height: 26px;
+                    border-radius: 50%;
+                    border: 2px solid #9ca3af;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 0.8rem;
+                    font-weight: bold;
+                    color: #6b7280;
+                    background: white;
+                    flex-shrink: 0;
+
+                    &.checked {
+                        background-color: #2563eb;
+                        border-color: #2563eb;
+                        color: white;
+                    }
+                }
+                .option-text {
+                    font-size: 0.95rem;
+                    color: #374151;
+                }
+            }
+        }
+    }
+}

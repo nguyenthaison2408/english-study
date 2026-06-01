@@ -1,0 +1,121 @@
+$blue-header: #0096fa;
+$bg-color: #f4f6f8;
+$text-color: #333;
+$red-wrong: #ff4d4f;
+
+.part5-detail-page {
+  height: 100vh; 
+  display: flex; flex-direction: column;
+  background-color: $bg-color;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  overflow: hidden; 
+
+  // HEADER
+  .quiz-header { 
+      flex-shrink: 0; height: 60px; background: white; 
+      display: flex; justify-content: space-between; align-items: center; 
+      padding: 0 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); z-index: 10;
+      .header-left { display: flex; align-items: center; gap: 15px; font-weight: 600; font-size: 1.1rem; .back-icon { color: #333; }}
+      .header-right { display: flex; align-items: center; gap: 20px; .timer { color: $red-wrong; font-weight: bold; } .icon-btn { cursor: pointer; color: #555; font-size: 1.1rem;} } 
+  }
+
+  // BODY
+  .quiz-body {
+    flex: 1; 
+    overflow-y: auto; 
+    overflow-x: hidden; // Ẩn scroll ngang khi slide chạy
+    padding: 30px 20px;
+    display: flex; 
+    justify-content: center; // Căn giữa ngang
+    position: relative; // Để sidebar sticky hoạt động nếu cần
+
+    // Container bọc Card để căn chỉnh Animation
+    .card-container {
+        width: 100%;
+        max-width: 850px;
+        position: relative; // Để các motion.div absolute chồng lên nhau khi chuyển cảnh
+        display: flex;
+        justify-content: center;
+    }
+
+    // CARD CÂU HỎI
+    .question-card-single {
+        width: 100%;
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        overflow: hidden;
+        height: fit-content;
+
+        // Header câu hỏi (Xanh dương)
+        .panel-header.blue-header {
+            background: $blue-header; 
+            color: white; 
+            padding: 20px 25px; 
+            font-weight: 600; font-size: 1.1rem; line-height: 1.5;
+            display: flex; justify-content: space-between; align-items: flex-start;
+        }
+
+        // Danh sách đáp án
+        .options-list {
+            padding: 25px; 
+            display: flex; flex-direction: column; gap: 15px;
+
+            .option-item {
+                display: flex; align-items: center; gap: 15px;
+                padding: 15px 20px; 
+                border-radius: 8px; 
+                cursor: pointer;
+                border: 1px solid transparent; 
+                background-color: #fafafa;
+                transition: background-color 0.2s; // Chỉ transition màu nền, không transition vị trí để tránh xung đột với framer-motion
+                
+                &:hover { background-color: #f0f8ff; border-color: #dbeafe; }
+                
+                &.selected { 
+                    background-color: rgba($blue-header, 0.08); 
+                    border-color: rgba($blue-header, 0.3); 
+                    .radio-circle { border-color: $blue-header; .dot { background: $blue-header; transform: scale(1);} } 
+                    .opt-text { color: $blue-header; font-weight: 600; }
+                }
+                
+                .radio-circle { 
+                    width: 22px; height: 22px; 
+                    border: 2px solid #ccc; border-radius: 50%; 
+                    display: flex; align-items: center; justify-content: center; flex-shrink: 0; 
+                    background: white;
+                    .dot { width: 12px; height: 12px; background: transparent; border-radius: 50%; transition: 0.2s; transform: scale(0); } 
+                }
+                .opt-text { font-size: 1.05rem; color: #333; }
+            }
+        }
+    }
+
+    // SIDEBAR
+    .column-sidebar {
+        width: 280px; background:white; border-radius:12px; margin-left:20px; height: fit-content;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.05); padding: 20px; position: sticky; top: 0; z-index: 5;
+        .palette-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; .palette-item { aspect-ratio: 1; border: 1px solid #ddd; border-radius: 4px; display: flex; align-items: center; justify-content: center; cursor: pointer; &.active { border: 2px solid #ff9800; font-weight: bold; } &.filled { background: $blue-header; color: white;} } }
+    }
+  }
+
+  // FOOTER
+  .quiz-footer {
+    flex-shrink: 0; background: white; border-top: 1px solid #eee; padding: 15px 30px; z-index: 20;
+    .nav-row {
+        display: flex; justify-content: space-between; align-items: center;
+        max-width: 850px; margin: 0 auto; width: 100%; 
+
+        .nav-arrow { 
+            background: none; border: none; cursor: pointer; font-size: 1.4rem; color: #555; padding: 8px 20px; border-radius: 8px; transition: 0.2s;
+            &:hover:not(:disabled) { color: $blue-header; background: #f0f8ff; transform: scale(1.1); }
+            &:disabled { opacity: 0.3; }
+        }
+        .center-icons { display: flex; gap: 40px; color: #666; font-size: 1.1rem; }
+    }
+  }
+
+  @media (max-width: 900px) {
+      .quiz-body { padding: 15px; .column-sidebar { display: none; } }
+  }
+}

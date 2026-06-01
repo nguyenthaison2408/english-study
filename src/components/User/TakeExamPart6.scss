@@ -1,0 +1,139 @@
+.take-exam-part6 {
+    background-color: #f3f4f6;
+    min-height: 100vh;
+    padding-bottom: 60px;
+
+    .exam-header {
+        background-color: #ffffff;
+        border-bottom: 1px solid #e0e0e0;
+        z-index: 1020;
+    }
+
+    .timer-box {
+        font-family: 'Roboto Mono', monospace;
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #2c3e50;
+        background: #e9ecef;
+        padding: 6px 15px;
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        
+        &.danger {
+            color: #dc3545;
+            background: #fadbd8;
+        }
+    }
+
+    // --- Style Group Card (Passage + Questions) ---
+    .passage-group {
+        border-radius: 8px;
+        overflow: hidden;
+        border: 1px solid #e5e7eb !important;
+
+        .passage-col {
+            background-color: #f9fafb;
+            // Cho phép đoạn văn có thể scroll nếu quá dài
+            max-height: 800px;
+            overflow-y: auto; 
+
+            .passage-text-content {
+                font-family: 'Georgia', serif; // Font có chân cho bài đọc dễ đọc hơn
+                font-size: 1.05rem;
+                line-height: 1.8;
+                color: #374151;
+                background: white;
+                padding: 20px;
+                border: 1px solid #e5e7eb;
+                border-radius: 4px;
+                box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+            }
+        }
+
+        .questions-col {
+            // Style câu hỏi bên phải
+            .individual-question {
+                &:last-child {
+                    margin-bottom: 0 !important;
+                    .divider-dashed { display: none; }
+                }
+                
+                &.is-answered {
+                   .question-number-badge {
+                       background-color: #198754; // Badge chuyển xanh
+                       color: white;
+                   }
+                }
+            }
+
+            .question-number-badge {
+                width: 28px;
+                height: 28px;
+                background-color: #e5e7eb;
+                border-radius: 50%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: 0.85rem;
+                font-weight: 700;
+                color: #4b5563;
+                transition: all 0.2s;
+            }
+
+            .divider-dashed {
+                border-top: 1px dashed #e5e7eb;
+                margin-top: 20px;
+                margin-bottom: 0;
+                opacity: 0.7;
+            }
+
+            // --- Option Style (Giống Part 5) ---
+            .option-item {
+                cursor: pointer;
+                border: 1px solid transparent;
+                transition: all 0.15s ease;
+                background-color: #f9fafb;
+
+                &:hover {
+                    background-color: #f3f4f6;
+                    border-color: #d1d5db;
+                }
+
+                &.selected {
+                    background-color: #eff6ff;
+                    border: 1px solid #bfdbfe;
+                    .option-text {
+                        color: #1d4ed8;
+                        font-weight: 600;
+                    }
+                }
+
+                .option-radio {
+                    width: 26px;
+                    height: 26px;
+                    border-radius: 50%;
+                    border: 2px solid #9ca3af;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 0.8rem;
+                    font-weight: bold;
+                    color: #6b7280;
+                    background: white;
+                    flex-shrink: 0;
+
+                    &.checked {
+                        background-color: #2563eb;
+                        border-color: #2563eb;
+                        color: white;
+                    }
+                }
+                .option-text {
+                    font-size: 0.95rem;
+                    color: #374151;
+                }
+            }
+        }
+    }
+}

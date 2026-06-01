@@ -1,0 +1,188 @@
+.vocab-detail-container {
+  // Reset padding từ parent
+  margin: -2rem -3rem;
+  padding: 2rem 3rem 120px;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+  color: white;
+
+  @media (max-width: 1400px) {
+    margin: -2rem;
+    padding: 2rem 2rem 120px;
+  }
+
+  @media (max-width: 768px) {
+    margin: -1.5rem -1rem;
+    padding: 1.5rem 1rem 120px;
+  }
+
+  // 1. Nút quay lại
+  .top-nav {
+    margin-bottom: 2rem;
+    
+    .back-link {
+      background: none;
+      border: none;
+      color: #94a3b8;
+      cursor: pointer;
+      font-size: 15px;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 12px;
+      border-radius: 6px;
+      transition: all 0.2s;
+      
+      &:hover { 
+        color: #cbd5e1;
+        background-color: rgba(51, 65, 85, 0.5);
+      }
+    }
+  }
+
+  // 2. Grid hiển thị các bài học
+  .lessons-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 3rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+
+    @media (max-width: 1024px) {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2.5rem 1.5rem;
+    }
+
+    @media (max-width: 768px) {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem 1rem;
+    }
+
+    @media (max-width: 480px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  // 3. Style từng item (Bài học)
+  .lesson-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+
+    &:hover {
+      transform: translateY(-8px);
+      
+      .icon-circle {
+        border-color: #22c55e;
+        box-shadow: 0 8px 20px rgba(34, 197, 94, 0.3);
+        transform: scale(1.05);
+      }
+    }
+
+    // Vòng tròn chứa icon
+    .icon-circle {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(34, 211, 238, 0.1) 0%, rgba(59, 130, 246, 0.1) 100%);
+      border: 4px solid #86efac;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      
+      .emoji-icon {
+        font-size: 3rem;
+      }
+    }
+
+    // Tên bài học
+    .lesson-title {
+      font-size: 1rem;
+      color: #ffffff;
+      text-align: center;
+      font-weight: 600;
+      margin: 0 0 1rem 0;
+      line-height: 1.4;
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    // Phần thống kê
+    .lesson-stats {
+      display: flex;
+      gap: 1rem;
+      font-size: 0.875rem;
+      font-weight: 600;
+
+      .stat-group {
+        display: flex;
+        align-items: center;
+        gap: 0.375rem;
+        padding: 0.375rem 0.75rem;
+        background: rgba(71, 85, 105, 0.5);
+        border-radius: 9999px;
+        backdrop-filter: blur(10px);
+        
+        .icon-svg {
+          width: 16px;
+          height: 16px;
+        }
+
+        &.check {
+          color: #22d3ee; 
+        }
+
+        &.time {
+          color: #10b981; 
+        }
+      }
+    }
+  }
+
+  // 4. Footer Button
+  .footer-action {
+    position: fixed;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    
+    .btn-learn-new {
+      background: linear-gradient(135deg, #22d3ee 0%, #3b82f6 100%);
+      backdrop-filter: blur(10px);
+      color: white;
+      border: none;
+      padding: 1rem 3rem;
+      border-radius: 9999px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      box-shadow: 0 8px 24px rgba(34, 211, 238, 0.4);
+      transition: all 0.3s ease;
+
+      &:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 12px 32px rgba(34, 211, 238, 0.5);
+      }
+
+      &:active {
+        transform: translateY(-1px);
+      }
+
+      .btn-icon {
+        font-size: 1.5rem;
+      }
+    }
+  }
+}

@@ -1,0 +1,512 @@
+$bg-dark: #0f0f0f;
+$bg-card: #1a1a1a;
+$text-primary: #fff;
+$text-secondary: #aaa;
+$accent-color: #3b82f6;
+$border-color: #333;
+
+.exam-page-container {
+  display: flex;
+  min-height: 100vh;
+  background-color: $bg-dark;
+  font-family: 'Inter', sans-serif;
+}
+
+/* === SIDEBAR === */
+.exam-sidebar {
+  width: 280px;
+  background: #18181b;
+  border-right: 1px solid $border-color;
+  position: fixed;
+  height: 100vh;
+  overflow-y: auto;
+  z-index: 100;
+
+  .sidebar-header {
+    padding: 1.5rem;
+    border-bottom: 1px solid $border-color;
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+
+    h3 {
+      margin: 0;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: $text-secondary;
+      letter-spacing: 1px;
+    }
+  }
+
+  .sidebar-content {
+    padding: 1rem;
+  }
+
+  .part-btn {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.9rem 1.2rem;
+    margin-bottom: 0.5rem;
+    background: transparent;
+    border: 1px solid $border-color;
+    border-radius: 10px;
+    color: $text-secondary;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background: rgba(59, 130, 246, 0.1);
+      border-color: $accent-color;
+      color: $text-primary;
+      transform: translateX(5px);
+    }
+
+    &.active {
+      background: linear-gradient(135deg, $accent-color 0%, #2563eb 100%);
+      border-color: $accent-color;
+      color: white;
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+
+      .badge-count {
+        background: rgba(255,255,255,0.2);
+        color: white;
+      }
+    }
+
+    &.all-btn {
+      border: 2px solid $accent-color;
+      font-weight: 700;
+      margin-bottom: 1rem;
+
+      &:hover {
+        background: linear-gradient(135deg, rgba(59, 130, 246, 0.2) 0%, rgba(37, 99, 235, 0.2) 100%);
+      }
+
+      &.active {
+        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        border-color: #10b981;
+      }
+    }
+
+    .part-stats {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .badge-count {
+      background: $border-color;
+      color: $text-secondary;
+      padding: 0.25rem 0.6rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      min-width: 30px;
+      text-align: center;
+    }
+  }
+}
+
+/* === MAIN CONTENT === */
+.exam-main-content {
+  flex: 1;
+  margin-left: 280px;
+  padding: 2rem 3rem;
+  color: $text-primary;
+  background: radial-gradient(circle at top right, #1e1e2e 0%, #0f0f0f 40%);
+}
+
+.exam-header {
+  display: flex;
+  justify-content: flex-start; // Đổi thành start để nút back nằm cạnh
+  align-items: center;
+  gap: 20px; // Khoảng cách giữa nút back và title
+  margin-bottom: 2.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid $border-color;
+
+  // Style cho nút Back
+  .btn-back {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid #333;
+    color: #aaa;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover {
+        background: $accent-color;
+        color: white;
+        border-color: $accent-color;
+        transform: translateX(-3px); // Hiệu ứng lùi nhẹ
+        box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
+    }
+  }
+
+  .header-info {
+    h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(90deg, #fff, #94a3b8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    p {
+      color: $text-secondary;
+      font-size: 1rem;
+    }
+  }
+}
+
+/* === EXAM LIST === */
+.exam-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+/* === EXAM CARD === */
+.exam-card {
+  background: $bg-card;
+  border: 1px solid #27272a;
+  border-radius: 16px;
+  padding: 1.5rem;
+  position: relative;
+  transition: all 0.3s ease;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+
+  &:hover {
+    transform: translateY(-5px);
+    border-color: $accent-color;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+
+    .start-btn {
+      background: $accent-color;
+      border-color: $accent-color;
+      color: white;
+      
+      .icon-circle {
+        background: rgba(255,255,255,0.2);
+        color: white;
+      }
+    }
+  }
+
+  .card-tags {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    display: flex;
+    gap: 5px;
+
+    .tag {
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 4px;
+      text-transform: uppercase;
+
+      &.blue { 
+        background: rgba(59, 130, 246, 0.2); 
+        color: #60a5fa; 
+      }
+      &.red { 
+        background: rgba(239, 68, 68, 0.2); 
+        color: #f87171; 
+      }
+    }
+  }
+
+  .card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+
+    .level-badge {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.8rem;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-weight: 500;
+
+      &.easy { color: #4ade80; background: rgba(74, 222, 128, 0.1); }
+      &.medium { color: #facc15; background: rgba(250, 204, 21, 0.1); }
+      &.hard { color: #f87171; background: rgba(248, 113, 113, 0.1); }
+    }
+
+    .participants {
+      font-size: 0.8rem;
+      color: #666;
+    }
+  }
+
+  .exam-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 1rem;
+    line-height: 1.4;
+  }
+
+  .exam-meta {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 1.5rem;
+    
+    .meta-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.85rem;
+      color: #888;
+    }
+  }
+
+  .start-btn {
+    margin-top: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.6rem 1rem;
+    border-radius: 10px;
+    border: 1px solid #333;
+    background: transparent;
+    color: #ccc;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    .icon-circle {
+      width: 24px;
+      height: 24px;
+      background: #333;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+    }
+  }
+}
+/* === CUSTOM TABS (Thay thế Bootstrap) === */
+.custom-tabs-wrapper {
+  display: flex;
+  background: #18181b; /* Màu nền tối trùng với sidebar hoặc card */
+  padding: 6px;
+  border-radius: 50px;
+  border: 1px solid #333; /* Viền mỏng tinh tế */
+  position: relative;
+  gap: 5px;
+
+  /* Responsive: Trên mobile thì full width, trên PC thì auto */
+  width: 100%;
+  max-width: 320px; 
+  margin: 0 auto; 
+
+  @media (min-width: 768px) {
+    margin: 0; /* PC căn trái */
+  }
+
+  .tab-item {
+    flex: 1;
+    padding: 10px 20px;
+    border-radius: 40px;
+    border: none;
+    background: transparent;
+    color: #888; /* Màu chữ khi chưa active */
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    white-space: nowrap;
+
+    &:hover:not(.active) {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    &.active {
+      background: $accent-color; /* Màu xanh chủ đạo */
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4); /* Đổ bóng nhẹ cho nút active */
+      
+      /* Hiệu ứng gradient nhẹ nếu muốn đẹp hơn */
+      background: linear-gradient(135deg, $accent-color 0%, #2563eb 100%);
+    }
+  }
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+  .exam-sidebar {
+    width: 100%;
+    position: relative;
+    height: auto;
+    border-right: none;
+    border-bottom: 1px solid $border-color;
+  }
+
+  .exam-main-content {
+    margin-left: 0;
+    padding: 1.5rem;
+  }
+
+  .exam-page-container {
+    flex-direction: column;
+  }
+}
+/* === HISTORY TABLE (Dark Mode) === */
+
+.history-container {
+  margin-top: 1rem;
+}
+
+.history-table-wrapper {
+  background: #1a1a1a; /* Nền tối giống card */
+  border: 1px solid #333; /* Viền tối */
+  border-radius: 16px;
+  overflow: hidden; /* Bo tròn góc bảng */
+  overflow-x: auto; /* Scroll ngang trên mobile */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.custom-history-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 800px; /* Đảm bảo bảng không bị vỡ trên màn hình nhỏ */
+
+  /* Header Styles */
+  thead {
+    background: #202025;
+    border-bottom: 1px solid #333;
+
+    th {
+      padding: 1.2rem 1rem;
+      text-align: left;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #888; /* Màu chữ tiêu đề xám nhạt */
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+
+      &.text-center { text-align: center; }
+      &.text-right { text-align: right; }
+      &.pl-4 { padding-left: 1.5rem; }
+      &.pr-4 { padding-right: 1.5rem; }
+    }
+  }
+
+  /* Body Styles */
+  tbody {
+    tr {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      transition: background 0.2s ease;
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.03); /* Hover sáng nhẹ */
+      }
+    }
+
+    td {
+      padding: 1rem;
+      vertical-align: middle;
+      color: #ddd;
+      font-size: 0.95rem;
+
+      &.text-center { text-align: center; }
+      &.text-right { text-align: right; }
+      &.pl-4 { padding-left: 1.5rem; }
+      &.pr-4 { padding-right: 1.5rem; }
+    }
+  }
+
+  /* Nội dung trong ô */
+  .quiz-name {
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 2px;
+  }
+
+  .quiz-id {
+    font-size: 0.75rem;
+    color: #666;
+  }
+
+  .cell-content {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #aaa;
+
+    &.highlight {
+      color: $accent-color; /* Màu xanh cho thời gian */
+    }
+  }
+
+  /* Badges (Đạt / Chưa đạt) */
+  .status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    border: 1px solid transparent;
+
+    &.pass {
+      background: rgba(16, 185, 129, 0.15); /* Xanh lá nhạt */
+      color: #34d399;
+      border-color: rgba(16, 185, 129, 0.2);
+    }
+
+    &.fail {
+      background: rgba(239, 68, 68, 0.15); /* Đỏ nhạt */
+      color: #f87171;
+      border-color: rgba(239, 68, 68, 0.2);
+    }
+  }
+
+  /* Điểm số */
+  .score-cell {
+    font-weight: 600;
+    .score-highlight {
+      color: #fff;
+      font-size: 1.1rem;
+    }
+  }
+
+  /* Nút hành động */
+  .action-btn {
+    padding: 6px 16px;
+    background: transparent;
+    border: 1px solid #444;
+    border-radius: 20px;
+    color: #ccc;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover {
+      border-color: $accent-color;
+      color: $accent-color;
+      background: rgba(59, 130, 246, 0.1);
+    }
+  }
+}

@@ -1,0 +1,686 @@
+/* ============================================
+   FORUM COMPONENT - COMPLETE STYLES
+   ============================================ */
+
+// ---------- 1. VARIABLES & PALETTE ----------
+$primary: #6366f1;       
+$primary-dark: #4f46e5;
+$primary-soft: #EEF2FF;  
+$secondary: #ec4899;     
+$accent: #8b5cf6;        
+
+$bg-body: #F3F4F6;       
+$bg-white: #FFFFFF;
+$bg-hover: #F9FAFB;
+
+$text-main: #1F2937;     
+$text-sec: #6B7280;      
+$text-light: #9CA3AF;    
+
+$border-color: #E5E7EB;  
+$radius-btn: 12px;       
+
+$shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+$shadow-card: 0 10px 15px -3px rgba(0, 0, 0, 0.03), 0 4px 6px -2px rgba(0, 0, 0, 0.02);
+$shadow-float: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+
+$radius-xl: 24px;
+$radius-lg: 16px;
+$radius-md: 12px;
+
+$font-family: 'Inter', system-ui, -apple-system, sans-serif;
+$anim-speed: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+body {
+  overflow: hidden;
+}
+
+// ---------- 2. GLOBAL RESET ----------
+.forum-page-wrapper {
+  height: 100vh;
+  display: flex; /* Flex column để chứa header và body */
+  flex-direction: column;
+  overflow: hidden;
+  background-color: $bg-body;
+  font-family: $font-family;
+  color: $text-main;
+  line-height: 1.5;
+  * { box-sizing: border-box; }
+}
+
+.container {
+  width: 100% !important; max-width: 100% !important; margin: 0 !important; padding: 0 !important;
+}
+
+// NEW: Forum Body layout (Sidebar Left + Right Content)
+.forum-body {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+}
+
+// NEW: Content wrapper cho Hero + Layout
+.forum-content {
+    flex: 1;
+    height: 100%;
+    overflow: hidden; // Không scroll ở wrapper cha này nữa
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+// ---------- 3. HERO SECTION (COMPACT VERSION) ----------
+.forum-hero {
+  position: relative;
+  background: linear-gradient(135deg, $primary 0%, $accent 50%, $secondary 100%);
+  color: white;
+  // GIẢM PADDING: Trước đây là 40px 40px 60px -> Giảm xuống để ngắn lại
+  padding: 25px 30px 50px; 
+  
+  flex-shrink: 0;
+  width: 100%;
+  margin-left: 0;
+  border-radius: 0 0 0 50px; // Bo góc nhỏ hơn chút (trước là 60px)
+
+  box-shadow: 0 4px 20px -5px rgba($primary, 0.3);
+  z-index: 1;
+
+  .hero-content {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex; justify-content: space-between; align-items: center;
+
+    @media (max-width: 1200px) {
+      flex-direction: column; text-align: center; gap: 16px; // Giảm gap
+    }
+  }
+
+  @media (max-width: 900px) {
+      border-radius: 0 0 30px 30px;
+      // GIẢM PADDING MOBILE: Trước là 60px... -> Giảm mạnh cho mobile đỡ chiếm chỗ
+      padding: 30px 16px 60px; 
+  }
+
+  .text-content {
+     padding-left: 50px; 
+     
+    h1.hero-title { 
+      // GIẢM SIZE CHỮ: Trước là 2.2rem
+      font-size: 1.75rem; 
+      font-weight: 800; 
+      margin-bottom: 8px; // Giảm margin
+      text-shadow: 0 4px 12px rgba(0,0,0,0.1); 
+    }
+    p.hero-subtitle { 
+        font-size: 0.95rem; 
+        opacity: 0.95; 
+        max-width: 550px; 
+        font-weight: 400; 
+        margin-bottom: 16px; // Giảm khoảng cách tới nút bấm
+    }
+  }
+
+  .btn-hero-create {
+    background: white; color: $primary; 
+    border: none; 
+    // NÚT NHỎ HƠN: Trước là 12px 28px
+    padding: 10px 24px; 
+    border-radius: 50px;
+    font-weight: 700; 
+    font-size: 0.9rem; // Chữ trong nút nhỏ lại
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    transition: all $anim-speed;
+    display: inline-flex; align-items: center; gap: 8px;
+
+    &:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    }
+  }
+
+  .hero-stats {
+    display: flex; gap: 30px; // Giảm khoảng cách giữa các số liệu
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(12px); 
+    // KHUNG THỐNG KÊ NHỎ HƠN
+    padding: 12px 24px; 
+    border-radius: $radius-lg;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+
+    .stat-item { 
+      text-align: center; 
+      .count { 
+          font-size: 1.4rem; // Số nhỏ hơn (trước là 1.6rem)
+          font-weight: 800; display: block; 
+      }
+      .label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; opacity: 0.9; }
+    }
+  }
+}
+
+// Wrapper trung gian để ép layout lấp đầy chiều cao còn lại
+.forum-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 0; // Quan trọng để con scroll được
+    overflow: hidden;
+}
+
+// ---------- 4. LAYOUT GRID (UPDATED) ----------
+.forum-layout {
+  flex: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 320px;
+  gap: 30px;
+  
+  height: 100%; // Chiếm hết chiều cao container cha
+  overflow: hidden; // Ẩn scroll của container chính, scroll từng cột bên trong
+  
+  padding-bottom: 0; 
+  
+  position: relative;
+  z-index: 10;
+  
+  margin-top: -50px; 
+  padding-right: 30px;
+  padding-left: 30px;
+
+  @media (max-width: 1300px) {
+    grid-template-columns: 1fr; 
+    .sidebar-right { display: none; }
+    padding-right: 20px;
+    padding-left: 20px;
+  }
+
+  @media (max-width: 900px) {
+    grid-template-columns: 1fr;
+    margin-top: -30px;
+    padding: 0 16px;
+  }
+}
+
+// ---------- 5. SIDEBAR COMMON STYLES ----------
+.sidebar-card {
+  background: $bg-white;
+  border-radius: $radius-xl;
+  box-shadow: $shadow-card;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  padding: 20px;
+  margin-bottom: 24px;
+  transition: transform $anim-speed, box-shadow $anim-speed;
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: $shadow-float;
+  }
+
+  .card-header {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 16px;
+    h4 { font-size: 1rem; font-weight: 700; color: $text-main; margin: 0; display: flex; align-items: center; gap: 8px; }
+    .member-count { font-size: 0.75rem; color: $text-sec; background: $bg-body; padding: 2px 8px; border-radius: 10px; }
+  }
+}
+
+// ---------- 6. LEFT SIDEBAR ----------
+.sidebar {
+  width: 280px;
+  flex-shrink: 0;
+  position: relative; 
+  display: flex;
+  flex-direction: column;
+  background: white; 
+  z-index: 20; 
+  margin-top: 0;
+  border-right: 1px solid rgba(0,0,0,0.03);
+  padding: 20px 15px;
+  padding-bottom: 40px; 
+  height: 100%; // Full height
+  overflow-y: auto; // Scroll riêng
+  border-top-right-radius: 0; 
+  border-bottom-right-radius: 30px;
+  box-shadow: 4px 0 20px rgba(0,0,0,0.02);
+
+  &::-webkit-scrollbar { width: 4px; }
+  &::-webkit-scrollbar-thumb { background-color: rgba(0,0,0,0.1); border-radius: 4px; }
+
+  @media (max-width: 900px) {
+    display: none; 
+  }
+
+  // User Welcome Card
+  .user-welcome {
+    text-align: center; 
+    background: linear-gradient(180deg, rgba($primary-soft, 0.5) 0%, rgba(255,255,255,0) 100%);
+    border: 1px solid rgba($primary, 0.1);
+    box-shadow: none; 
+    padding: 24px 16px; 
+    border-radius: $radius-lg;
+    margin-bottom: 24px;
+    margin-top: 10px; 
+
+    transition: all 0.3s ease;
+
+    &:hover {
+        border-color: rgba($primary, 0.3);
+        background: linear-gradient(180deg, rgba($primary-soft, 0.8) 0%, rgba(255,255,255,0.2) 100%);
+    }
+    
+    .avatar-circle {
+      width: 90px; height: 90px; margin: 0 auto 12px;
+      position: relative;
+      img { 
+          width: 100%; height: 100%; border-radius: 50%; object-fit: cover; 
+          border: 3px solid transparent; 
+          background: linear-gradient(white, white), linear-gradient(135deg, $primary, $secondary);
+          background-origin: border-box; background-clip: content-box, border-box;
+          padding: 3px; box-shadow: 0 4px 10px rgba($primary, 0.2);
+      }
+      .avatar-fallback { 
+          width: 100%; height: 100%; border-radius: 50%; 
+          background: linear-gradient(135deg, $primary, $accent);
+          color: white; display: flex; align-items: center; justify-content: center; 
+          font-size: 2rem; font-weight: bold; box-shadow: 0 4px 10px rgba($primary, 0.3);
+      }
+    }
+
+    h3 { 
+        font-size: 1.25rem; font-weight: 800; margin-bottom: 6px; 
+        background: linear-gradient(90deg, $primary-dark 0%, $accent 100%);
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent; color: $primary-dark;
+    }
+    p { font-size: 0.85rem; color: $text-sec; margin-bottom: 12px; font-weight: 500; }
+    .user-role-badge { 
+        background: white; border: 1px solid rgba($primary, 0.2); color: $primary; 
+        padding: 4px 14px; border-radius: 20px; font-size: 0.75rem; font-weight: 700;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+    }
+    .btn-sidebar-login {
+        display: inline-block; margin-top: 16px; padding: 10px 24px;
+        background: linear-gradient(90deg, $primary 0%, $accent 100%);
+        color: white; border-radius: 50px; text-decoration: none; font-weight: 600; font-size: 0.95rem;
+        box-shadow: 0 4px 12px rgba($primary, 0.25);
+        transition: transform 0.2s;
+        &:hover { transform: translateY(-2px); box-shadow: 0 6px 15px rgba($primary, 0.35); }
+    }
+  }
+
+  // Members List styles
+  .members-list {
+    display: flex; flex-direction: column; gap: 4px;
+    .member-item {
+      display: flex; align-items: center; gap: 6px;
+      padding: 5px 6px; border-radius: $radius-md; cursor: pointer; transition: all 0.2s;
+      border: 1px solid transparent; 
+      &:hover {
+        background: white; border-color: $primary-soft; box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+        .member-name { color: $primary; }
+      }
+      .member-avatar { width: 20px; height: 38px; flex-shrink: 0; img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; } }
+      .member-info {
+        flex: 1; overflow: hidden;
+        .member-name { display: block; font-size: 0.7rem; font-weight: 600; color: $text-main; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .member-meta { 
+             display: flex; align-items: center; gap: 4px;
+             .member-level { font-size: 0.6rem; color: $text-sec; }
+             .member-badge.admin { background: #FEE2E2; color: #EF4444; font-size: 0.55rem; padding: 1px 6px; border-radius: 4px; font-weight: bold; }
+        }
+      }
+    }
+  }
+
+  .view-all-members {
+      margin-top: 16px;
+      text-align: center;
+      padding-top: 10px;
+      border-top: 1px dashed $border-color;
+
+      .btn-view-all {
+          background: $primary-soft;
+          padding: 8px 20px;
+          border-radius: 20px;
+          border: 1px solid transparent;
+          color: $primary;
+          font-weight: 600;
+          font-size: 0.85rem;
+          cursor: pointer;
+          transition: all 0.2s;
+          display: inline-flex; align-items: center; gap: 6px;
+
+          &:hover { background: darken($primary-soft, 5%); transform: translateY(-1px); }
+          &:active { transform: scale(0.98); }
+          i { font-size: 0.8rem; }
+      }
+  }
+
+  .tags-cloud {
+      display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px;
+      .tag { 
+          font-size: 0.8rem; background: $bg-body; color: $text-sec; padding: 6px 14px; border-radius: 20px; transition: 0.2s; border: 1px solid transparent;
+          &:hover { background: white; color: $primary; border-color: $primary; box-shadow: 0 2px 8px rgba($primary, 0.15); } 
+      }
+  }
+  .stats-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 24px;
+      .stat-box { 
+         text-align: center; background: linear-gradient(to bottom right, $bg-hover, white); 
+         padding: 12px; border-radius: 12px; border: 1px solid rgba(0,0,0,0.03);
+         .stat-number { display: block; font-weight: 800; color: $primary; font-size: 1.2rem; margin-bottom: 2px; }
+         .stat-label { font-size: 0.75rem; color: $text-light; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600;}
+      }
+  }
+}
+
+// ---------- 7. MAIN FEED (SCROLLABLE) ----------
+.main-feed {
+    height: 100%;
+    overflow-y: auto;
+    padding-top: 50px; 
+    padding-bottom: 60px;
+    padding-right: 5px; 
+
+    &::-webkit-scrollbar { width: 5px; }
+    &::-webkit-scrollbar-thumb { background-color: rgba(0,0,0,0.1); border-radius: 4px; }
+    
+    .btn-load-more-modern {
+        display: block; width: 100%; padding: 14px; margin-top: 20px;
+        background: white; border: 1px solid $border-color; border-radius: $radius-btn;
+        color: $text-sec; font-weight: 600; cursor: pointer; transition: 0.2s;
+        &:hover { background: $bg-body; color: $primary; }
+    }
+}
+
+.editor-collapse {
+  overflow: visible;             
+  max-height: none;          
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  margin-bottom: 0;
+
+  &.open {
+    opacity: 1;
+    transform: translateY(0);
+    margin-bottom: 24px;
+  }
+}
+
+
+.loading-skeleton .skeleton-card {
+  background: white; padding: 20px; border-radius: $radius-xl; margin-bottom: 20px;
+  animation: pulse 1.5s infinite;
+  .sk-header { display: flex; gap: 10px; margin-bottom: 15px; .sk-avatar { width: 40px; height: 40px; background: #eee; border-radius: 50%; } .sk-name { width: 120px; height: 20px; background: #eee; border-radius: 4px; } }
+  .sk-body { height: 100px; background: #eee; border-radius: 8px; }
+}
+@keyframes pulse { 0% { opacity: 0.6; } 50% { opacity: 1; } 100% { opacity: 0.6; } }
+
+.post-item {
+  @extend .sidebar-card;
+  padding: 0; 
+  .post-header {
+    padding: 16px 20px; display: flex; align-items: center; gap: 12px;
+    .user-avatar { width: 44px; height: 44px; border-radius: 50%; border: 2px solid white; box-shadow: $shadow-sm; }
+    .meta { h5 { font-size: 1rem; font-weight: 700; margin: 0; } span { font-size: 0.8rem; color: $text-light; } }
+    .post-options { margin-left: auto; color: $text-light; cursor: pointer; }
+  }
+  .post-content {
+    padding: 0 20px 16px;
+    .post-text { font-size: 1rem; line-height: 1.6; margin-bottom: 12px; color: $text-main; }
+  }
+  .post-media {
+      img { width: 100%; height: auto; max-height: 600px; object-fit: cover; display: block; }
+  }
+  .post-actions {
+    padding: 12px 20px; border-top: 1px solid $bg-body; display: flex; gap: 20px; 
+    button { 
+        background: none; border: none; font-weight: 600; color: $text-sec; cursor: pointer; display: flex; align-items: center; gap: 6px; padding: 8px 12px; border-radius: 20px; transition: 0.2s;
+        &:hover { background: $bg-body; color: $text-main; } 
+        &.active-like { color: $secondary; i { color: $secondary; } background: rgba($secondary, 0.05); }
+    }
+  }
+}
+
+// ---------- 8. RIGHT SIDEBAR (SCROLLABLE & POPUP NOTIFY) ----------
+.sidebar-right {
+    position: relative; 
+    height: 100%;
+    overflow-y: auto;
+    
+    padding-top: 50px;
+    padding-bottom: 40px;
+    
+    display: flex; 
+    flex-direction: column;
+
+    &::-webkit-scrollbar { width: 4px; }
+    &::-webkit-scrollbar-thumb { background-color: rgba(0,0,0,0.1); border-radius: 4px; }
+
+    .online-friends {
+        .online-list {
+            display: flex; flex-direction: column; gap: 12px;
+            .online-item {
+                display: flex; align-items: center; gap: 10px;
+                .online-avatar { 
+                    position: relative; width: 32px; height: 32px; 
+                    img { width: 100%; height: 100%; border-radius: 50%; }
+                    .online-dot { position: absolute; bottom: 0; right: 0; width: 8px; height: 8px; background: #10B981; border: 1px solid white; border-radius: 50%; }
+                }
+                .online-name { font-size: 0.9rem; font-weight: 500; }
+            }
+        }
+    }
+    
+    // Nút chuông thông báo
+    .btn-fb-notify {
+        width: 36px; height: 36px;
+        border-radius: 50%;
+        border: none;
+        background-color: #e4e6eb; 
+        color: #050505;
+        display: flex; align-items: center; justify-content: center;
+        cursor: pointer;
+        position: relative;
+        transition: all 0.2s;
+        flex-shrink: 0; 
+    
+        &:hover { background-color: #d8dadf; }
+        &:active { transform: scale(0.96); }
+        &.active { background-color: rgba($primary, 0.1); color: $primary; }
+        
+        i { font-size: 1.1rem; }
+    
+        .notify-badge {
+            position: absolute; top: -3px; right: -3px;
+            background-color: #e41e3f; color: white;
+            font-size: 0.7rem; font-weight: 700;
+            min-width: 18px; height: 18px;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            border: 2px solid #ffffff; padding: 0 4px; box-sizing: content-box;
+        }
+    }
+
+    // Popup thông báo
+    .notifications-dropdown {
+        position: absolute;
+        top: 130%; 
+        right: -10px;
+        width: 320px;
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        border: 1px solid #E5E7EB;
+        z-index: 1000;
+        overflow: hidden;
+        animation: fadeInDown 0.25s ease-out;
+        transform-origin: top right;
+    
+        .notify-header {
+            padding: 12px 16px;
+            border-bottom: 1px solid #F3F4F6;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #F9FAFB;
+            h5 { margin: 0; font-size: 0.95rem; font-weight: 700; color: #1F2937; }
+            .req-count { background: #EF4444; color: white; padding: 2px 8px; border-radius: 10px; font-size: 0.7rem; font-weight: 700; }
+        }
+    
+        .notify-body {
+            max-height: 350px;
+            overflow-y: auto;
+            &::-webkit-scrollbar { width: 4px; }
+            &::-webkit-scrollbar-thumb { background: #E5E7EB; border-radius: 4px; }
+        }
+    
+        .empty-notify {
+            padding: 40px 0; text-align: center; color: #9CA3AF;
+            i { font-size: 2rem; margin-bottom: 10px; display: block; opacity: 0.5; }
+            p { margin: 0; font-size: 0.9rem; }
+        }
+    
+        .request-item {
+            display: flex; gap: 12px; padding: 12px 16px; transition: background 0.2s; border-bottom: 1px solid #F9FAFB;
+            &:hover { background: #F9FAFB; }
+            .req-avatar { 
+                flex-shrink: 0;
+                img { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; border: 1px solid #E5E7EB; } 
+            }
+            .req-info {
+                flex: 1; display: flex; flex-direction: column; gap: 4px;
+                .req-name { font-weight: 600; color: #1F2937; font-size: 0.9rem; }
+                .req-mutual { font-size: 0.75rem; color: #6B7280; }
+                .req-actions {
+                    display: flex; gap: 8px; margin-top: 4px;
+                    button {
+                        padding: 6px 12px; border-radius: 6px; font-size: 0.8rem; font-weight: 600; border: none; cursor: pointer; transition: all 0.2s;
+                        &.btn-confirm { background: $primary; color: white; &:hover { background: $primary-dark; } }
+                        &.btn-delete { background: #E5E7EB; color: #374151; &:hover { background: #D1D5DB; } }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@keyframes fadeInDown { from { opacity: 0; transform: translateY(-10px) scale(0.95); } to { opacity: 1; transform: translateY(0) scale(1); } }
+
+.alert-floating {
+    position: fixed; top: 80px; right: 20px; z-index: 1000;
+    background: #FEF2F2; color: #EF4444; border: 1px solid #FCA5A5;
+    padding: 12px 20px; border-radius: 8px; display: flex; align-items: center; gap: 10px; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    button { background: none; border: none; color: #EF4444; cursor: pointer; margin-left: auto; }
+}
+
+.users-loading {
+    text-align: center; padding: 20px;
+    .loading-spinner { width: 24px; height: 24px; border: 3px solid $bg-body; border-top: 3px solid $primary; border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 8px; }
+    p { font-size: 0.8rem; color: $text-sec; }
+}
+@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+/* ============================================
+   9. USER MODAL (POPUP INFO BOX) - UPDATED
+   ============================================ */
+.user-modal-overlay {
+    position: fixed; top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(8px);
+    z-index: 9999;
+    display: flex; justify-content: center; align-items: center;
+    opacity: 0; animation: fadeInOverlay 0.3s ease-out forwards;
+
+    .user-modal {
+        background: $bg-white;
+        width: 90%; max-width: 400px;
+        border-radius: 24px;
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        position: relative; overflow: hidden;
+        display: flex; flex-direction: column;
+        transform: scale(0.95); opacity: 0;
+        animation: popInModal 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+
+        .user-modal-header {
+            height: 120px; background: linear-gradient(135deg, $primary, $accent);
+            position: relative; padding: 16px;
+            display: flex; justify-content: space-between; align-items: flex-start;
+            h3 { color: rgba(255, 255, 255, 0.9); font-size: 0.9rem; font-weight: 500; margin: 0; text-transform: uppercase; letter-spacing: 1px; }
+            .user-modal-close {
+                background: rgba(255, 255, 255, 0.2); border: none; width: 32px; height: 32px;
+                border-radius: 50%; color: white; cursor: pointer;
+                display: flex; align-items: center; justify-content: center; transition: 0.2s;
+                &:hover { background: rgba(255, 255, 255, 0.4); transform: rotate(90deg); }
+            }
+        }
+
+        .user-modal-avatar {
+            width: 120px; height: 120px; margin: -60px auto 12px; position: relative; z-index: 2;
+            img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; border: 4px solid $bg-white; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); background: $bg-white; }
+        }
+
+        .user-modal-info {
+            padding: 0 24px; text-align: center; flex: 1;
+            .user-modal-name { font-size: 1.5rem; font-weight: 800; color: $text-main; margin: 0 0 16px 0; }
+            .user-modal-stats {
+                display: flex; justify-content: center; gap: 24px; margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid $border-color;
+                .stat-item {
+                    display: flex; flex-direction: column; align-items: center;
+                    .stat-value { font-size: 1.2rem; font-weight: 700; color: $primary; }
+                    .stat-label { font-size: 0.75rem; color: $text-sec; text-transform: uppercase; font-weight: 500; margin-top: 2px; }
+                }
+            }
+            .user-modal-badges {
+                display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-bottom: 20px;
+                .badge {
+                    font-size: 0.75rem; padding: 4px 12px; border-radius: 20px; font-weight: 600; display: inline-flex; align-items: center; gap: 6px;
+                    &.admin { background: #FEF2F2; color: #EF4444; border: 1px solid #FECACA; }
+                    &.premium { background: #FDF4FF; color: #D946EF; border: 1px solid #F0ABFC; }
+                    &.level { background: #ECFDF5; color: #10B981; border: 1px solid #A7F3D0; }
+                }
+            }
+            .user-modal-details {
+                text-align: left; background: $bg-body; padding: 16px; border-radius: 12px; margin-bottom: 20px;
+                .detail-item {
+                    display: flex; align-items: center; gap: 12px; margin-bottom: 10px; color: $text-sec; font-size: 0.9rem;
+                    &:last-child { margin-bottom: 0; }
+                    i { width: 20px; text-align: center; color: $primary; opacity: 0.8; }
+                    &.bio { align-items: flex-start; margin-top: 12px; padding-top: 12px; border-top: 1px dashed $border-color; font-style: italic; i { margin-top: 4px; } }
+                }
+            }
+        }
+
+        .user-modal-actions {
+            padding: 0 24px; display: flex; flex-direction: column; gap: 10px;
+            .friend-request-buttons, .friend-actions { display: flex; gap: 10px; width: 100%; button { flex: 1; } }
+            .btn-action {
+                width: 100%; padding: 12px; border-radius: 12px; border: none; font-weight: 600; cursor: pointer; transition: all 0.2s ease; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 0.95rem;
+                &.add-friend, &.accept { background: $primary; color: white; box-shadow: 0 4px 6px -1px rgba($primary, 0.3); &:hover:not(:disabled) { background: $primary-dark; transform: translateY(-2px); } }
+                &.edit-profile { background: $bg-body; color: $text-main; &:hover { background: darken($bg-body, 5%); } }
+                &.cancel-request, &.decline, &.remove { background: #FEF2F2; color: #EF4444; &:hover:not(:disabled) { background: #FEE2E2; } }
+                &.message, &.view-posts { background: $bg-body; color: $text-main; border: 1px solid $border-color; &:hover { background: $bg-hover; border-color: $primary; color: $primary; } }
+                &:disabled { opacity: 0.7; cursor: not-allowed; }
+            }
+        }
+
+        .user-modal-footer {
+            padding: 16px 24px; text-align: center; margin-top: 10px;
+            .btn-close { background: transparent; border: none; color: $text-light; font-size: 0.9rem; cursor: pointer; &:hover { color: $text-sec; text-decoration: underline; } }
+        }
+    }
+}
+
+@keyframes fadeInOverlay { to { opacity: 1; } }
+@keyframes popInModal { to { opacity: 1; transform: scale(1); } }
+
+.editor-collapse {
+  margin-bottom: 24px; 
+}
+
+.posts-stream {
+  display: flex;
+  flex-direction: column;
+  gap: 16px; 
+}

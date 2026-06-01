@@ -1,0 +1,390 @@
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css'); /* Import Icon nếu cần */
+
+.userprofile-page {
+  display: flex;
+  height: 100vh;
+  background-color: #0b0e11; /* Màu nền đen thẫm giống ảnh */
+  color: white;
+  font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  overflow: hidden;
+}
+
+/* Giả sử SideBar có width cố định, hoặc flex */
+/* @import "./SideBar.scss"; */
+
+.main-content {
+  flex: 1;
+  padding: 1.5rem 2rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &::-webkit-scrollbar { width: 6px; }
+  &::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+}
+
+/* ================= HEADER ================= */
+.profile-header {
+  text-align: center;
+  margin-bottom: 2rem;
+  
+  .avatar-container {
+    position: relative;
+    width: 80px; height: 80px;
+    margin: 0 auto 0.8rem;
+    
+    img {
+      width: 100%; height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #1e293b;
+    }
+  }
+
+  .display-name {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0 0 0.3rem;
+  }
+
+  .username {
+    color: #94a3b8;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    i { cursor: pointer; margin-left: 5px; }
+  }
+
+  .upgrade-btn {
+    background: linear-gradient(90deg, #f59e0b, #ea580c);
+    color: white;
+    border: none;
+    padding: 0.6rem 1.5rem;
+    border-radius: 99px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    box-shadow: 0 4px 10px rgba(234, 88, 12, 0.3);
+    
+    &:hover { transform: translateY(-1px); }
+  }
+}
+
+/* ================= LAYOUT GRID 2 CỘT ================= */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1fr 380px; /* Cột trái tự động, cột phải cố định 380px */
+  gap: 1.5rem;
+  width: 100%;
+  max-width: 1100px;
+
+  @media (max-width: 900px) {
+    grid-template-columns: 1fr; /* Mobile xuống dòng */
+  }
+}
+
+/* ================= CỘT TRÁI ================= */
+.left-column {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* 4 Ô Stats Grid */
+.stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+
+  .stat-card {
+    background: #161b22;
+    border-radius: 16px;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column; /* Icon trên, số dưới như ảnh */
+    justify-content: space-between;
+    height: 100px;
+    position: relative;
+    border: 1px solid #30363d;
+    
+    /* Layout lại cho giống ảnh: Icon góc phải trên, số góc trái */
+    .icon-wrapper {
+        position: absolute;
+        top: 1rem; right: 1rem;
+        font-size: 1.2rem;
+        opacity: 0.8;
+    }
+
+    .stat-info {
+        margin-top: auto;
+        display: flex;
+        flex-direction: column;
+        
+        .stat-value { font-size: 1.4rem; font-weight: 700; }
+        .stat-label { font-size: 0.85rem; color: #8b949e; margin-top: 2px;}
+    }
+
+    /* Màu sắc riêng */
+    &.green { .stat-value, .icon-wrapper { color: #22c55e; } }
+    &.orange { .stat-value, .icon-wrapper { color: #fbbf24; } }
+    &.gray { 
+        .stat-value { color: #e2e8f0; } 
+        .icon-wrapper { color: #94a3b8; } 
+    }
+    &.blue { .stat-value, .icon-wrapper { color: #3b82f6; } }
+  }
+}
+
+/* Freeze Card */
+.freeze-card {
+  background: #161b22;
+  border: 1px solid #30363d;
+  border-radius: 16px;
+  padding: 1.2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .freeze-info {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      font-weight: 600;
+      font-size: 1.1rem;
+      .freeze-icon { font-size: 1.5rem; }
+  }
+
+  .equip-btn {
+      background: #1e293b;
+      color: #38bdf8;
+      border: 1px solid #38bdf8;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: 0.2s;
+      &:hover { background: #38bdf8; color: white; }
+  }
+}
+
+/* Chart Card */
+.chart-card {
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 16px;
+    padding: 1.5rem;
+    min-height: 250px;
+    display: flex;
+    flex-direction: column;
+
+    .chart-legend {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        margin-bottom: 2rem;
+        font-size: 0.9rem;
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            .dot { width: 10px; height: 10px; border-radius: 50%; display: block; }
+            &.blue .dot { background: #3b82f6; }
+            &.green .dot { background: #22c55e; }
+        }
+    }
+
+    .chart-area {
+        flex: 1;
+        position: relative;
+        border-left: 2px solid #475569;
+        border-bottom: 2px solid #475569;
+        margin-left: 10px; margin-bottom: 20px;
+        
+        .x-labels {
+            position: absolute;
+            bottom: -25px;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            color: #94a3b8;
+        }
+
+        .chart-placeholder-line {
+            position: absolute;
+            bottom: 0; left: 0; width: 100%; height: 2px;
+            background: #22c55e;
+            /* Tạo điểm tròn ở đầu mút */
+            &::before {
+                content: ''; position: absolute; left: 0; bottom: -4px;
+                width: 10px; height: 10px; background: #22c55e; border-radius: 50%;
+            }
+            &::after {
+                content: ''; position: absolute; right: 0; bottom: -4px;
+                width: 10px; height: 10px; background: #22c55e; border-radius: 50%;
+            }
+        }
+    }
+}
+
+/* ================= CỘT PHẢI (PANEL) ================= */
+.right-column {
+    .panel-card {
+        background: #161b22;
+        border: 1px solid #30363d;
+        border-radius: 16px;
+        padding: 1.5rem;
+    }
+}
+
+.gems-header {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    span { display: block; font-size: 0.95rem; color: #cbd5e1; }
+    .gem-count { font-size: 1.2rem; font-weight: 700; color: #38bdf8; margin-top: 0.3rem; }
+}
+
+.task-list {
+    margin-bottom: 1.5rem;
+    .task-item {
+        display: flex;
+        gap: 0.8rem;
+        align-items: flex-start;
+        margin-bottom: 1rem;
+        
+        .check-icon { color: #22c55e; font-size: 1.2rem; margin-top: 2px; }
+        .flag-icon { color: #cbd5e1; font-size: 1.1rem; margin-top: 2px; }
+        .edit-icon { color: #3b82f6; cursor: pointer; margin-left: auto; }
+
+        .task-content { flex: 1; }
+        .task-text { font-size: 0.9rem; line-height: 1.4; margin-bottom: 0.3rem; }
+        
+        .progress-bar {
+            height: 6px; width: 100%; background: #334155; border-radius: 3px;
+            .fill { height: 100%; background: #22c55e; border-radius: 3px; }
+        }
+    }
+}
+
+.download-banner {
+    background: #713f12;
+    color: #fef3c7;
+    text-align: center;
+    padding: 0.8rem;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+    cursor: pointer;
+    border: 1px solid #a16207;
+}
+/* ===============================
+   BUTTON ĐẸP – STYLE HIỆN ĐẠI
+================================*/
+.beautiful-btn {
+  padding: 12px 22px;
+  background: linear-gradient(135deg, #4b8bff, #786bff);
+  border: none;
+  color: #fff;
+  border-radius: 14px;
+  font-size: 15px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: 0.25s ease;
+  box-shadow: 0 4px 12px rgba(100, 110, 255, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Icon */
+.beautiful-btn i {
+  font-size: 16px;
+}
+
+/* Hover chuyển màu + nâng nhẹ */
+.beautiful-btn:hover {
+  transform: translateY(-2px);
+  background: linear-gradient(135deg, #5c99ff, #8c7dff);
+  box-shadow: 0 6px 16px rgba(120, 130, 255, 0.4);
+}
+
+/* Hiệu ứng nhấn */
+.beautiful-btn:active {
+  transform: scale(0.96);
+}
+
+/* Hiệu ứng “shine” khi di chuột */
+.beautiful-btn::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -80%;
+  width: 60%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.25);
+  transform: skewX(-20deg);
+  transition: 0.5s;
+}
+
+.beautiful-btn:hover::after {
+  left: 120%;
+}
+
+.referral-section {
+    h4 { font-size: 0.95rem; margin-bottom: 0.5rem; }
+    .ref-desc {
+        font-size: 0.85rem; color: #94a3b8; margin-bottom: 0.8rem; line-height: 1.4;
+        &.text-red { color: #ef4444; }
+        .code { color: #22c55e; font-weight: bold; cursor: pointer; }
+    }
+
+    .social-list {
+        display: flex;
+        flex-direction: column;
+        gap: 0.8rem;
+
+        .social-btn {
+            border: none;
+            border-radius: 12px;
+            padding: 0.8rem 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            color: white;
+            position: relative;
+            overflow: hidden;
+            
+            .content { 
+                display: flex; flex-direction: column; align-items: flex-start; z-index: 2; 
+                .title { font-size: 0.85rem; font-weight: 600; }
+                .reward { font-size: 0.75rem; background: rgba(0,0,0,0.2); padding: 2px 6px; border-radius: 4px; margin-top: 4px; }
+            }
+
+            &.facebook { background: #1877f2; }
+            &.tiktok { background: linear-gradient(45deg, #000000, #461924); }
+            &.group { background: #10b981; }
+
+            /* Hình nền trang trí góc phải (giả lập) */
+            .bg-img {
+                position: absolute; right: 0; top: 0; height: 100%; width: 60px;
+                opacity: 0.3; z-index: 1;
+                background-size: cover;
+            }
+        }
+    }
+    
+}
+
+
+
+
+
+

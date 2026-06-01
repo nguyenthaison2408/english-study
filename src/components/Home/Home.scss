@@ -1,0 +1,708 @@
+@import "~bootstrap/scss/bootstrap";
+
+// Home Page Variables
+$accent-color: #FFDDAE;
+$primary-gradient: linear-gradient(135deg, #C6E7FF, #D4F6FF);
+$bg-light: #FBFBFB;
+$text-primary: #333;
+$text-secondary: #666;
+$shadow-light: rgba(198, 231, 255, 0.5);
+$shadow-accent: rgba(255, 221, 174, 0.6);
+
+// Home Container
+.home {
+  min-height: 100vh;
+}
+
+// Hero Section
+.hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  overflow: hidden;
+
+  &__video-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    object-fit: cover;
+    z-index: 1;
+  }
+
+  &__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 2;
+  }
+
+  &__container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    position: relative;
+    z-index: 3;
+    min-height: 100vh;
+  }
+
+  &__content {
+    z-index: 2;
+  }
+
+  &__title {
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    font-weight: 700;
+    margin-bottom: 20px;
+    line-height: 1.2;
+
+    &-highlight {
+      color: $accent-color;
+    }
+  }
+
+  &__description {
+    font-size: 1.2rem;
+    margin-bottom: 40px;
+    opacity: 0.9;
+    line-height: 1.6;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  &__actions {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  &__cta-btn {
+    background: $accent-color;
+    color: $text-primary;
+    border: none;
+    padding: 16px 32px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px $shadow-accent;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px $shadow-accent;
+    }
+  }
+
+  &__secondary-btn {
+    background: transparent;
+    color: white;
+    border: 2px solid white;
+    padding: 14px 30px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.1);
+      transform: translateY(-2px);
+    }
+  }
+
+  &__scroll-indicator {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    animation: bounce 2s infinite;
+    z-index: 3;
+  }
+
+  &__scroll-text {
+    font-size: 0.9rem;
+    opacity: 0.8;
+  }
+
+  &__scroll-arrow {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateX(-50%) translateY(0);
+  }
+  40% {
+    transform: translateX(-50%) translateY(-10px);
+  }
+  60% {
+    transform: translateX(-50%) translateY(-5px);
+  }
+}
+
+// Services Section
+.services {
+  padding: 100px 0;
+  background: linear-gradient(135deg, #F5F7FD 0%, #F5F7FD 100%);
+
+  &__container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  &__header {
+    text-align: center;
+    margin-bottom: 80px;
+  }
+
+  &__title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #F4A261;
+    margin-bottom: 20px;
+  }
+
+  &__description {
+    font-size: 1.1rem;
+    color: #2A3D45;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  &__grid {
+    display: grid;
+    // Thay đổi từ auto-fit sang repeat(2, 1fr) để ép cứng 2 cột
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 40px;
+
+    // Đảm bảo trên điện thoại sẽ tự động về 1 cột để không bị vỡ giao diện
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+    }
+  }
+}
+
+.service-card {
+  background: #FFFFFF;
+  padding: 40px 30px;
+  border-radius: 12px;
+  box-shadow: 0 5px 20px rgba(244, 162, 97, 0.2);
+  transition: all 0.3s ease;
+  text-align: center;
+  border-top-left-radius: 60px;
+  border: 1px solid rgba(244, 162, 97, 0.1);
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(244, 162, 97, 0.3);
+  }
+
+  &__icon {
+    width: 80px;
+    height: 80px;
+    background: #F4A261;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    box-shadow: 0 8px 25px $shadow-accent;
+  }
+
+  &__icon-symbol {
+    font-size: 2rem;
+  }
+
+  &__title {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #2A3D45;
+    margin-bottom: 15px;
+  }
+
+  &__description {
+    color: #5D737E;
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+
+  &__link-button {
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    font-family: inherit;
+    color: #F4A261;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1rem;
+    transition: color 0.3s ease;
+
+    &:hover {
+      color: darken(#F4A261, 20%);
+      text-decoration: underline;
+    }
+  }
+}
+
+// About Section - ĐÃ CẬP NHẬT THEO HÌNH ẢNH
+.about {
+  padding: 80px 0; 
+  background: $bg-light;
+  
+  &__container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  // Header/Intro Box (Phần NỘI DUNG LUYỆN TẬP CHẤT LƯỢNG)
+  &__intro-box {
+    background: #FFFFFF;
+    border-radius: 20px;
+    padding: 40px;
+    margin-bottom: 50px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    position: relative;
+    overflow: hidden;
+    
+    // Thêm hình nền nhẹ ở góc trên bên phải
+    &::before {
+      content: '';
+      position: absolute;
+      top: -50px;
+      right: -50px;
+      width: 200px;
+      height: 200px;
+      background: rgba(198, 231, 255, 0.4); // Màu xanh dương nhạt (hoặc tùy chỉnh)
+      border-radius: 50%;
+      z-index: 0;
+    }
+  }
+
+  &__intro-content {
+    max-width: 60%;
+    position: relative;
+    z-index: 1;
+    
+    @media (max-width: 992px) {
+      max-width: 100%;
+      text-align: center;
+    }
+  }
+  
+  &__title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #007bff;
+    margin-bottom: 15px;
+    
+    @media (max-width: 992px) {
+      font-size: 1.8rem;
+    }
+  }
+
+  &__description {
+    font-size: 1.1rem;
+    color: $text-secondary;
+    line-height: 1.6;
+    
+    @media (max-width: 992px) {
+      font-size: 1rem;
+    }
+  }
+  
+  &__intro-image {
+    max-width: 300px;
+    position: relative;
+    z-index: 1;
+    
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+    
+    @media (max-width: 992px) {
+      display: none; // Ẩn ảnh trên màn hình nhỏ
+    }
+  }
+
+  // Grid cho 4 cards
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+    
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+      gap: 30px;
+    }
+  }
+}
+
+// Style cho 4 Cards (Mô phỏng đề thi, Cá nhân người dùng,...)
+.about-card {
+  background: #FFFFFF;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 280px; 
+  
+  // Màu viền và bo góc theo vị trí (để trông giống hình)
+  &:nth-child(2n-1) { // Card 1 & 3 (Bên trái)
+    border: 1px solid rgba(0, 123, 255, 0.1);
+    border-top-left-radius: 60px;
+    border-bottom-right-radius: 15px;
+    
+    .about-card__title {
+      background-color: #e6f2ff; // Màu nền xanh nhẹ cho tiêu đề
+    }
+  }
+  
+  &:nth-child(2n) { // Card 2 & 4 (Bên phải)
+    border: 1px solid rgba(244, 162, 97, 0.1);
+    border-top-right-radius: 60px;
+    border-bottom-left-radius: 15px;
+    
+    .about-card__title {
+      background-color: #fff4e6; // Màu nền cam nhẹ cho tiêu đề
+    }
+  }
+  
+  &__content {
+    margin-bottom: 20px;
+  }
+  
+  &__title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: $text-primary;
+    margin-bottom: 10px;
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 5px;
+  }
+
+  &__description {
+    color: $text-secondary;
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+  
+  &__image-container {
+    display: flex;
+    justify-content: flex-start; // Mặc định ảnh nằm bên trái (Card 1, 3)
+    margin-top: auto; 
+    padding-top: 10px;
+    
+    &--right {
+      justify-content: flex-end; // Ảnh nằm bên phải (Card 2, 4)
+    }
+    
+    img {
+      max-width: 100%;
+      height: auto;
+      max-height: 120px; 
+      object-fit: contain;
+    }
+  }
+}
+
+// Contact Section
+.contact {
+  padding: 100px 0;
+  background: #F5F7FD;
+
+  &__container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+  }
+
+  &__content {
+    z-index: 2;
+  }
+
+  &__title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #F4A261;
+    margin-bottom: 20px;
+  }
+
+  &__description {
+    font-size: 1.1rem;
+    color: #2A3D45;
+    margin-bottom: 40px;
+    line-height: 1.6;
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  &__info-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-size: 1.1rem;
+    color: #2A3D45;
+  }
+
+  &__info-icon {
+    font-size: 1.5rem;
+    color: #F4A261;
+  }
+
+  &__form {
+    background: #FFFFFF;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(244, 162, 97, 0.2);
+  }
+}
+
+.contact-form {
+  &__group {
+    margin-bottom: 20px;
+  }
+
+  &__label {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #2A3D45;
+    margin-bottom: 8px;
+  }
+
+  &__input,
+  &__textarea {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+    font-family: inherit;
+
+    &:focus {
+      outline: none;
+      border-color: #F4A261;
+      box-shadow: 0 0 0 3px rgba(244, 162, 97, 0.3);
+    }
+  }
+
+  &__textarea {
+    resize: vertical;
+    min-height: 120px;
+  }
+
+  &__submit-btn {
+    width: 100%;
+    background: #F4A261;
+    color: #2A3D45;
+    border: none;
+    padding: 14px 24px;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 15px rgba(244, 162, 97, 0.3);
+    }
+  }
+}
+
+// Responsive Design
+@media (max-width: 992px) {
+  // Responsive cho Intro Box
+  .about {
+    &__intro-box {
+      flex-direction: column;
+      text-align: center;
+      padding: 30px;
+    }
+    
+    &__intro-content {
+      max-width: 100%;
+    }
+    
+    &__title {
+      font-size: 1.8rem;
+    }
+
+    &__intro-image {
+      display: none; // Ẩn ảnh trên màn hình nhỏ
+    }
+  }
+}
+
+
+@media (max-width: 768px) {
+  .hero,
+  .services,
+  .about,
+  .contact {
+    &__container {
+      padding: 0 16px;
+    }
+  }
+
+  .hero {
+    &__container {
+      gap: 40px;
+      text-align: center;
+    }
+
+    &__title {
+      font-size: 2.2rem;
+    }
+
+    &__actions {
+      justify-content: center;
+    }
+  }
+
+  .services {
+    padding: 60px 0;
+
+    &__title {
+      font-size: 2rem;
+    }
+
+    &__grid {
+      grid-template-columns: 1fr;
+      gap: 30px;
+    }
+  }
+
+  .about {
+    padding: 60px 0;
+
+    &__container {
+      padding: 0 16px;
+    }
+
+    &__title {
+      font-size: 2rem;
+    }
+
+    &__grid {
+      grid-template-columns: 1fr;
+      gap: 30px;
+    }
+  }
+
+  .about-card {
+    min-height: auto;
+    
+    &__image-container {
+      justify-content: center !important; // Căn giữa ảnh trên mobile
+      margin-top: 20px;
+    }
+  }
+
+
+  .contact {
+    padding: 60px 0;
+
+    &__container {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+
+    &__title {
+      font-size: 2rem;
+      text-align: center;
+    }
+  }
+
+  .contact-form {
+    padding: 30px 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero {
+    padding: 120px 0 80px;
+
+    &__container {
+      padding: 0 12px;
+    }
+
+    &__title {
+      font-size: 1.8rem;
+    }
+
+    &__actions {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    &__cta-btn,
+    &__secondary-btn {
+      width: 100%;
+      max-width: 280px;
+    }
+  }
+
+  .services,
+  .about,
+  .contact {
+    &__container {
+      padding: 0 12px;
+    }
+
+    &__title {
+      font-size: 1.8rem;
+    }
+  }
+
+  .service-card,
+  .about-card {
+    padding: 30px 20px;
+  }
+
+  .contact-form {
+    padding: 20px 16px;
+  }
+}

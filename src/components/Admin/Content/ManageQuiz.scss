@@ -1,0 +1,91 @@
+.manage-quiz-container {
+    padding: 20px;
+    background-color: #f5f7fa; // Màu nền xám nhẹ giống ảnh
+    min-height: 100vh;
+
+    .page-title {
+        font-size: 24px;
+        font-weight: 600;
+        margin-bottom: 20px;
+        color: #333;
+    }
+
+    .quiz-section {
+        margin-bottom: 40px;
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #000;
+            padding-left: 5px;
+            border-left: 4px solid #f0ad4e; // Điểm nhấn màu cam
+        }
+
+        .quiz-grid {
+            display: grid;
+            // Responsive: Mobile 1 cột, Tablet 2 cột, PC 4 cột
+            grid-template-columns: repeat(1, 1fr);
+            gap: 20px;
+
+            @media (min-width: 768px) {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            @media (min-width: 1200px) {
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+            .quiz-card {
+                background: #ffffff;
+                border-radius: 12px;
+                padding: 30px 20px;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+                cursor: pointer;
+                transition: transform 0.2s, box-shadow 0.2s;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                min-height: 180px;
+
+                &:hover {
+                    transform: translateY(-5px);
+                    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+                }
+
+                .card-content {
+                    width: 100%;
+                    text-align: center;
+
+                    .part-title {
+                        font-size: 18px;
+                        font-weight: 600;
+                        color: #333;
+                        margin-bottom: 20px;
+                    }
+
+                    .action-btn {
+                        display: inline-flex;
+                        align-items: center;
+                        justify-content: center;
+                        gap: 10px;
+                        padding: 10px 20px;
+                        border-radius: 8px;
+                        color: white;
+                        font-weight: 600;
+                        font-size: 14px;
+                        width: 100%;
+                        max-width: 200px;
+                        
+                        .icon {
+                            font-size: 18px;
+                            display: flex;
+                            align-items: center;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,263 @@
+/* --- VARIABLES --- */
+:root {
+  --bg-body: #f3f4f6;          /* Xám nhạt hơn cho nền */
+  --bg-card: #ffffff;
+  --text-primary: #111827;
+  --text-secondary: #6b7280;
+  --accent-color: #3b82f6;     /* Blue */
+  --accent-hover: #2563eb;
+  --success-color: #10b981;
+  --danger-color: #ef4444;
+  --radius-lg: 16px;
+  --radius-full: 9999px;
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1);
+}
+
+.take-exam-white-theme {
+  background-color: var(--bg-body);
+  min-height: 100vh;
+  font-family: 'Inter', sans-serif;
+  padding-bottom: 60px;
+
+  /* =========================================
+     1. HEADER FIX (CĂN CHỈNH LẠI)
+     ========================================= */
+  .exam-header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid #e5e7eb;
+    padding: 0.75rem 0;
+    box-shadow: var(--shadow-sm);
+
+    .header-container {
+      max-width: 1200px; /* Giới hạn chiều rộng để không bị loãng trên màn to */
+      margin: 0 auto;
+      padding: 0 20px;
+      margin-left: 240px;
+      margin-top: 20px;
+      
+      /* --- KEY FIX: Dùng Grid 3 cột --- 
+         Cột 1 (Trái): 1fr
+         Cột 2 (Giữa): auto (Vừa khít nội dung)
+         Cột 3 (Phải): 1fr
+         => Giúp tiêu đề luôn ở chính giữa tuyệt đối
+      */
+      display: grid;
+      grid-template-columns: 1fr auto 1fr; 
+      align-items: center; 
+    }
+
+    /* Cụm bên trái (Nút thoát) */
+    .left-section {
+        display: flex;
+        justify-content: flex-start;
+    }
+
+    .btn-nav-back {
+      display: flex; align-items: center; gap: 8px;
+      background: white;
+      border: 1px solid #e5e7eb;
+      color: var(--text-secondary);
+      padding: 8px 16px;
+      border-radius: var(--radius-full);
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+      &:hover { border-color: var(--text-primary); color: var(--text-primary); background: #f9fafb; }
+    }
+
+    /* Cụm ở giữa (Tiêu đề) */
+    .exam-title-box {
+      text-align: center;
+      h1 { margin: 0; font-size: 1.1rem; font-weight: 700; color: var(--text-primary); }
+      .subtitle { font-size: 0.8rem; color: var(--text-secondary); display: block; margin-top: 2px;}
+    }
+
+    /* Cụm bên phải (Timer + Nút nộp) */
+    .exam-controls {
+      display: flex; 
+      align-items: center; 
+      gap: 12px;
+      justify-content: flex-end; /* Đẩy hết sang phải */
+
+      .timer-badge {
+        display: flex; align-items: center; gap: 6px;
+        background: #eff6ff;
+        color: var(--accent-color);
+        padding: 6px 14px;
+        border-radius: var(--radius-full);
+        font-weight: 600;
+        border: 1px solid #dbeafe;
+        white-space: nowrap; /* Không xuống dòng */
+
+        &.urgent {
+          color: var(--danger-color);
+          background: #fef2f2;
+          border-color: #fee2e2;
+        }
+      }
+
+      .btn-primary-submit {
+        background-color: var(--accent-color);
+        color: white;
+        border: none;
+        padding: 8px 24px;
+        border-radius: var(--radius-full);
+        font-weight: 600;
+        cursor: pointer;
+        white-space: nowrap;
+        box-shadow: 0 4px 10px rgba(59, 130, 246, 0.3);
+        transition: transform 0.2s;
+        
+        &:hover { background-color: var(--accent-hover); transform: translateY(-1px); }
+      }
+    }
+  }
+
+  /* =========================================
+     2. AUDIO FIX (THU GỌN & CÂN ĐỐI)
+     ========================================= */
+  .exam-content {
+    max-width: 1000px; /* Thu hẹp chiều rộng tổng thể để nội dung tập trung hơn */
+    margin: 0 auto;
+    padding: 2rem 20px;
+  }
+
+  .audio-sticky-wrapper {
+    position: sticky;
+    top: 80px;
+    z-index: 900;
+    margin-bottom: 30px;
+    
+    .audio-player-glass {
+      background: white;
+      border-radius: 12px; /* Bo góc ít hơn chút cho gọn */
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      box-shadow: var(--shadow-md);
+      border: 1px solid #e5e7eb;
+      
+      /* Icon loa */
+      .icon-wrap {
+        width: 40px; height: 40px;
+        background: var(--accent-color);
+        color: white;
+        border-radius: 50%;
+        display: flex; align-items: center; justify-content: center;
+        flex-shrink: 0;
+      }
+
+      /* Thanh player */
+      .player-wrap {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        
+        .label { 
+            font-size: 0.7rem; 
+            color: var(--text-secondary); 
+            font-weight: 700; 
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+        }
+        
+        .native-audio { 
+            width: 100%; 
+            height: 30px; 
+            /* Tùy chỉnh màu native audio filter nếu cần */
+        }
+      }
+    }
+  }
+
+  /* =========================================
+     3. QUESTIONS GRID
+     ========================================= */
+  .questions-grid {
+    display: grid;
+    /* Tự động chia cột linh hoạt */
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+  }
+
+  .question-card-minimal {
+    background: var(--bg-card);
+    border-radius: var(--radius-lg);
+    padding: 20px;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid #f3f4f6;
+    transition: all 0.3s ease;
+    
+    &:hover {
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-md);
+    }
+
+    &.done {
+      background-color: #ecfdf5; /* Xanh lá siêu nhạt */
+      border-color: #10b981;
+    }
+
+    .card-header-minimal {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 20px;
+
+      .q-tag {
+        font-weight: 700; font-size: 0.9rem;
+        background: #f3f4f6; padding: 4px 8px; border-radius: 6px;
+      }
+      .status-icon.success { color: var(--success-color); font-size: 1.2rem; }
+      .status-icon.pending { color: #e5e7eb; font-size: 1.2rem; }
+    }
+
+    .options-wrapper {
+      display: flex; 
+      justify-content: center; /* Căn giữa các nút A B C */
+      gap: 20px;
+      margin-bottom: 15px;
+
+      .option-circle {
+        width: 50px; height: 50px;
+        border-radius: 50%;
+        background: white;
+        border: 2px solid #e5e7eb;
+        color: var(--text-secondary);
+        font-weight: 700;
+        font-size: 1.1rem;
+        cursor: pointer;
+        transition: all 0.2s;
+
+        &:hover { border-color: var(--accent-color); color: var(--accent-color); }
+        
+        &.active {
+          background: var(--accent-color);
+          border-color: var(--accent-color);
+          color: white;
+          box-shadow: 0 4px 10px rgba(59, 130, 246, 0.4);
+        }
+      }
+    }
+
+    .card-footer-hint {
+        text-align: center;
+        font-size: 0.75rem;
+        color: #9ca3af;
+        font-style: italic;
+    }
+  }
+  
+  /* Loading Screen */
+  .loading-screen {
+      height: 80vh; display: flex; flex-direction: column; 
+      align-items: center; justify-content: center;
+      .spinner-icon { font-size: 2rem; color: var(--accent-color); animation: spin 1s infinite linear; }
+  }
+}
+
+@keyframes spin { 100% { transform: rotate(360deg); } }

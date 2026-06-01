@@ -1,0 +1,107 @@
+.create-full-test-container {
+    background-color: #f5f7fa;
+    min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+    /* 1. HEADER ĐỨNG IM (Sticky Header) */
+    .quiz-header {
+        position: sticky;
+        top: 0;
+        z-index: 1020;
+        background-color: #fff;
+        border-bottom: 1px solid #dee2e6;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
+
+    /* 2. Custom Tabs */
+    .nav-tabs {
+        border-bottom: 2px solid #dee2e6;
+        .nav-item {
+            margin-bottom: -2px;
+            .nav-link {
+                border: none;
+                border-bottom: 3px solid transparent;
+                color: #6c757d;
+                transition: all 0.3s;
+                padding: 12px 20px;
+                font-weight: 600;
+                &:hover { color: #0d6efd; }
+                &.active {
+                    color: #0d6efd;
+                    border-bottom: 3px solid #0d6efd;
+                    background-color: transparent;
+                }
+            }
+        }
+    }
+
+    /* 3. Group Card Styles */
+    .group-card {
+        border-radius: 8px;
+        overflow: hidden;
+        transition: box-shadow 0.3s;
+        border: 1px solid #e9ecef !important;
+
+        .card-header {
+            background-color: #fff;
+            border-bottom: 1px solid #f0f0f0;
+        }
+    }
+
+    /* 4. CỘT TRÁI (Audio/Passage) - Scroll độc lập */
+    /* Giúp audio/đoạn văn luôn hiển thị khi cuộn câu hỏi dài */
+    .left-col-sticky {
+        position: sticky;
+        top: 80px; /* Cách header 1 đoạn */
+        align-self: flex-start;
+        max-height: calc(100vh - 100px); /* Chiều cao tối đa bằng màn hình trừ header */
+        overflow-y: auto; /* Cho phép cuộn bên trong nếu nội dung quá dài */
+
+        /* Custom scrollbar cho gọn */
+        &::-webkit-scrollbar { width: 5px; }
+        &::-webkit-scrollbar-track { background: #f1f1f1; }
+        &::-webkit-scrollbar-thumb { background: #ccc; border-radius: 3px; }
+        &::-webkit-scrollbar-thumb:hover { background: #aaa; }
+    }
+
+    /* 5. Passage Text Area (Input đoạn văn) */
+    .passage-area {
+        font-family: 'Courier New', Courier, monospace;
+        font-size: 14px;
+        line-height: 1.5;
+        background-color: #fff;
+        border: 1px solid #ced4da;
+        resize: vertical;
+        &:focus {
+            box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.15);
+        }
+    }
+
+    /* 6. Option Buttons (A, B, C, D) */
+    .option-label {
+        width: 40px;
+        justify-content: center;
+        font-weight: bold;
+        transition: all 0.2s;
+        border: 1px solid #ced4da;
+        
+        &.cursor-pointer:hover {
+            background-color: #e9ecef;
+        }
+
+        &.bg-success {
+            border-color: #198754;
+            color: white !important;
+        }
+    }
+
+    /* Animation nhẹ nhàng khi chuyển tab */
+    .animate__fadeIn {
+        animation: fadeIn 0.4s ease-out;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(5px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+}

@@ -1,0 +1,97 @@
+.homepage {
+  display: flex;
+  height: 100vh;
+  background: linear-gradient(to bottom, #111827, #0f172a);
+  color: white;
+  font-family: "Inter", sans-serif;
+}
+
+/* ===================== Sidebar ===================== */
+@import "./SideBar.scss";
+
+/* ===================== Main content ===================== */
+.main-content {
+  flex: 1;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: auto;
+
+  h1 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+    color: #f1f5f9;
+  }
+}
+
+/* ===================== Course list ===================== */
+.course-grid {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  width: 100%;
+  max-width: 700px;
+}
+
+/* ===================== Course card ===================== */
+.course-card {
+  width: 100%;
+  background: rgba(31, 41, 55, 0.85);
+  padding: 1.8rem;
+  border-radius: 1.2rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+  transition: all 0.25s ease;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(8px);
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 0 25px rgba(34, 197, 94, 0.3);
+    border-color: rgba(34, 197, 94, 0.3);
+  }
+
+  h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 0.6rem;
+  }
+
+  p {
+    font-size: 0.95rem;
+    color: #cbd5e1;
+    margin-bottom: 1rem;
+    line-height: 1.4;
+  }
+
+  .select-btn {
+    background: #22c55e;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 0.6rem 1.2rem;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background 0.25s ease;
+
+    &:hover {
+      background: #16a34a;
+    }
+  }
+}
+
+/* ===================== Scrollbar ===================== */
+.main-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.main-content::-webkit-scrollbar-thumb {
+  background: rgba(100, 100, 100, 0.4);
+  border-radius: 10px;
+
+  &:hover {
+    background: rgba(100, 100, 100, 0.6);
+  }
+}

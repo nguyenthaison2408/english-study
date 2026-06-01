@@ -1,0 +1,132 @@
+/* ===============================
+   GLOBAL RESET (QUAN TRỌNG)
+   Giúp loại bỏ viền trắng mặc định của trình duyệt
+================================ */
+body, html {
+  background-color: #000 !important;
+  margin: 0;
+  padding: 0;
+}
+
+/* ===============================
+   CONTAINER CHÍNH
+================================ */
+.course-detail-page {
+  display: flex;
+  width: 100%;
+  background: #000;      /* Nền đen tuyền */
+  min-height: 100vh;
+}
+
+/* ===============================
+   MAIN CONTENT
+================================ */
+.course-main {
+  flex: 1;
+  padding: 20px 20px;
+  background: #000;      /* Đảm bảo vùng nội dung cũng đen */
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ===============================
+   HEADER GIÁO VIÊN
+================================ */
+.course-header {
+  display: flex;
+  
+  /* Đổi từ 'center' sang 'flex-start' để nội dung nằm về bên trái */
+  justify-content: flex-start; 
+  
+  align-items: center;
+  margin-bottom: 35px;
+  color: #fff;
+  width: 100%;
+}
+.avatar-block {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+
+  .teacher-avatar {
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    border: 2px solid #333; /* Thêm viền nhẹ cho avatar nổi bật trên nền đen */
+  }
+
+  h2 {
+    margin: 0;
+    font-size: 22px;
+    color: #fff;
+  }
+
+  p {
+    margin: 0;
+    opacity: 0.8;
+    color: #ccc;
+  }
+}
+
+/* ===============================
+   DANH SÁCH BÀI HỌC
+================================ */
+.lesson-container {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  align-items: center;
+  width: 100%;
+}
+
+/* ===============================
+   THẺ BÀI HỌC (FIX LỖI TRẮNG Ở ĐÂY)
+================================ */
+.vocab-card {
+  /* Ép nền về màu đen và dùng !important để tránh bị ghi đè bởi thư viện khác */
+  background-color: #000 !important; 
+  border: 1px solid #00ff85;
+  padding: 25px 30px;
+  border-radius: 16px;
+  
+  width: 100%;
+  max-width: 600px;
+  text-align: center;
+  
+  /* Hiệu ứng bóng đổ nhẹ màu xanh để tách biệt thẻ khỏi nền đen */
+  box-shadow: 0 4px 15px rgba(0, 255, 133, 0.1); 
+
+  h3 {
+    margin-bottom: 8px;
+    color: #00ff85;
+    font-size: 20px;
+  }
+
+  p {
+    color: #d4ffd4;
+    opacity: 0.9;
+    margin-bottom: 15px;
+  }
+
+  /* NÚT BẤM */
+  .next-btn {
+    display: inline-block;
+    background: #00ff85 !important;
+    color: #000 !important;
+    padding: 10px 25px;
+    border: 1px solid #00ff85;
+    border-radius: 10px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background: #000 !important;   /* Hover thì đảo màu: Nền đen */
+      color: #00ff85 !important;     /* Chữ xanh */
+      border-color: #00ff85;
+      transform: scale(1.05);
+      box-shadow: 0 0 10px #00ff85; /* Thêm hiệu ứng phát sáng khi hover */
+    }
+  }
+}

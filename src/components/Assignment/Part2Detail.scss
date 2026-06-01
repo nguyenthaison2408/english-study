@@ -1,0 +1,123 @@
+$blue: #0096fa;
+$green: #2ecf5e;
+$purple: #7e57c2;
+$red: #ff4d4f;
+$bg-color: #f4f6f8;
+
+.part2-detail-page {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: $bg-color;
+  font-family: 'Segoe UI', sans-serif;
+
+  // Header giống Part 1
+  .quiz-header {
+    height: 60px; background: white;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); z-index: 10;
+    
+    .header-left { display: flex; align-items: center; gap: 15px; font-weight: 600; .back-icon { color: #333; }}
+    .header-right { 
+        display: flex; align-items: center; gap: 20px;
+        .timer { color: $red; font-weight: bold; display: flex; align-items: center; gap: 5px; }
+        .sidebar-toggle { color: #551fff; cursor: pointer; font-weight: 500; font-size: 0.9rem;}
+        .icon-btn { cursor: pointer; color: #555; }
+    }
+  }
+
+  // BODY
+  .quiz-body {
+    flex: 1; display: flex; gap: 20px; padding: 20px;
+    padding-bottom: 140px; overflow-y: auto; justify-content: center; // Canh giữa nếu không có sidebar
+
+    // Cột câu hỏi Part 2 (Rộng hơn Part 1)
+    .column-question-full {
+      flex: 1; 
+      max-width: 900px; // Giới hạn chiều rộng để nhìn đẹp hơn giống ảnh
+      background: white; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      display: flex; flex-direction: column;
+
+      .panel-header {
+        background: $blue; color: white; padding: 12px 20px;
+        border-radius: 8px 8px 0 0; font-weight: bold;
+        display: flex; justify-content: space-between; align-items: center;
+      }
+
+      .answers-list {
+        padding: 30px; display: flex; flex-direction: column; gap: 20px;
+
+        .answer-item {
+          display: flex; align-items: center; gap: 20px;
+          padding: 15px 20px; border-radius: 8px; cursor: pointer;
+          border: 1px solid transparent; 
+          transition: all 0.2s;
+
+          &:hover { background-color: #f8faff; border-color: #e0e0e0;}
+
+          .radio-circle {
+            width: 24px; height: 24px; border: 2px solid #ccc; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            .dot { width: 12px; height: 12px; background: currentColor; border-radius: 50%; }
+          }
+
+          .answer-content {
+             font-size: 1.1rem; color: #333; font-weight: 500;
+             .opt-key { margin-right: 10px; }
+          }
+
+          // Trạng thái đúng sai
+          &.selected-wrong {
+             background: rgba($red, 0.05); border-color: rgba($red, 0.2);
+             .radio-circle { border-color: $red; color: $red; }
+             .status-icon.wrong { color: $red; margin-left: auto; }
+          }
+          &.selected-correct {
+             background: rgba($blue, 0.05); border-color: rgba($blue, 0.2); // Ảnh dùng màu xanh dương cho đáp án chọn đúng
+             .radio-circle { border-color: $blue; color: $blue; }
+             .status-icon.correct { color: $blue; margin-left: auto; }
+          }
+          &.show-correct-hint {
+             // Hiển thị gợi ý đúng (màu xanh lá hoặc xanh dương tùy bạn)
+             .answer-content { color: $blue; }
+             .radio-circle { border-color: $blue; }
+          }
+        }
+      }
+    }
+
+    // Sidebar (copy từ Part 1 nhưng width nhỏ hơn chút)
+    .column-sidebar {
+      width: 300px; display: flex; flex-direction: column; gap: 15px;
+      .sidebar-buttons {
+          display: flex; gap: 10px;
+          button { flex: 1; padding: 8px; border-radius: 20px; font-weight: 600; cursor: pointer; font-size: 0.85rem;}
+          .btn-outline { background: white; border: 1px solid $green; color: $green; }
+          .btn-fill { background: $green; border: none; color: white; }
+      }
+      .comment-box {
+          background: white; border-radius: 8px; flex: 1;
+          .panel-header { background: $purple; color: white; padding: 10px; border-radius: 8px 8px 0 0; display:flex; justify-content: space-between;}
+          .comment-content { padding: 15px; font-size: 0.9rem; color: #777; }
+      }
+    }
+  }
+
+  // Footer (Giống hệt Part 1)
+  .quiz-footer {
+    position: fixed; bottom: 0; left: 0; right: 0;
+    background: white; border-top: 1px solid #eee; padding: 10px 30px; z-index: 20;
+
+    .audio-row-top {
+      display: flex; align-items: center; gap: 20px; margin-bottom: 5px;
+      .audio-controls { display: flex; gap: 15px; .btn-play { background:none; border:none; font-size:1.2rem; cursor: pointer; width: 30px;}}
+      .audio-progress { flex: 1; display: flex; align-items: center; gap: 10px; input { flex:1; height:4px; accent-color: $blue;} .time-tag { background: $blue; color:white; padding:2px 6px; border-radius:4px; font-size:0.75rem;}}
+      .speed-text { font-size: 0.9rem; color: #555; cursor: pointer;}
+    }
+    .audio-row-bottom {
+        display: flex; justify-content: space-between; padding-top: 5px; border-top: 1px solid #f9f9f9;
+        .nav-arrow { background: none; border:none; cursor: pointer; font-size: 1rem;}
+        .center-icons { display: flex; gap: 30px; color: #666; cursor: pointer;}
+    }
+  }
+}

@@ -1,0 +1,394 @@
+/* VARIABLES */
+$bg-dark: #0f0f0f;
+$bg-card: #1a1a1a;
+$bg-card-hover: #222;
+$text-primary: #fff;
+$text-secondary: #aaa;
+$border-color: #333;
+
+$color-success: #10b981;  /* Green Neon */
+$color-danger: #ef4444;   /* Red Neon */
+$color-warning: #f59e0b;  /* Amber */
+$color-info: #3b82f6;     /* Blue */
+$color-purple: #8b5cf6;
+
+/* MIXINS */
+@mixin card-base {
+  background: $bg-card;
+  border: 1px solid $border-color;
+  border-radius: 16px;
+  padding: 1.5rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.quiz-result-page {
+  min-height: 100vh;
+  background-color: $bg-dark;
+  font-family: 'Inter', sans-serif;
+  color: $text-primary;
+  padding: 2rem 1rem;
+  display: flex;
+  justify-content: center;
+
+  .result-container {
+    width: 100%;
+    max-width: 1000px;
+  }
+}
+
+/* === BACK BUTTON === */
+.btn-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  border: 1px solid #333;
+  color: $text-secondary;
+  padding: 10px 20px;
+  border-radius: 50px;
+  cursor: pointer;
+  font-weight: 600;
+  margin-bottom: 2rem;
+  transition: all 0.2s ease;
+
+  &:hover {
+    border-color: $text-primary;
+    color: $text-primary;
+    background: rgba(255, 255, 255, 0.05);
+    transform: translateX(-5px);
+  }
+}
+
+/* === HEADER === */
+.result-header {
+  text-align: center;
+  margin-bottom: 3rem;
+
+  h1 {
+    font-size: 2.2rem;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(90deg, #fff, #94a3b8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .result-date {
+    color: $text-secondary;
+    font-size: 0.9rem;
+  }
+}
+
+/* === STATS GRID === */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 4rem;
+
+  .stat-card {
+    @include card-base;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    position: relative;
+    overflow: hidden;
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+    }
+
+    /* Icon Styling */
+    .icon-wrapper {
+      width: 60px;
+      height: 60px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      flex-shrink: 0;
+    }
+
+    /* Text Info */
+    .stat-info {
+      display: flex;
+      flex-direction: column;
+      
+      .label {
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: $text-secondary;
+        margin-bottom: 4px;
+      }
+      .value {
+        font-size: 1.8rem;
+        font-weight: 800;
+      }
+    }
+
+    /* COLOR VARIANTS */
+    &.score-card {
+      .icon-wrapper { background: rgba($color-warning, 0.1); color: $color-warning; }
+      .value { color: $color-warning; }
+      
+      /* Dynamic Border based on score */
+      &.high { border-color: $color-warning; box-shadow: 0 0 15px rgba($color-warning, 0.2); }
+      &.medium { border-color: $color-info; }
+      &.low { border-color: #555; }
+    }
+
+    &.correct-card {
+      .icon-wrapper { background: rgba($color-success, 0.1); color: $color-success; }
+      .value { color: $color-success; }
+    }
+
+    &.time-card {
+      .icon-wrapper { background: rgba($color-info, 0.1); color: $color-info; }
+      .value { color: $color-info; }
+    }
+  }
+}
+
+/* === DETAILS SECTION === */
+.details-section {
+  .section-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    color: $text-primary;
+    border-left: 4px solid $color-purple;
+    padding-left: 1rem;
+  }
+}
+
+.answers-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 1.5rem;
+
+  .answer-card {
+    @include card-base;
+    border-left-width: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    /* Trạng thái Đúng/Sai */
+    &.correct {
+      border-left-color: $color-success;
+      background: linear-gradient(145deg, $bg-card 0%, rgba($color-success, 0.03) 100%);
+    }
+    &.wrong {
+      border-left-color: $color-danger;
+      background: linear-gradient(145deg, $bg-card 0%, rgba($color-danger, 0.03) 100%);
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+
+      .question-num {
+        font-weight: 700;
+        color: $text-secondary;
+      }
+
+      .status-badge {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 600;
+
+        &.success { background: rgba($color-success, 0.15); color: $color-success; }
+        &.danger { background: rgba($color-danger, 0.15); color: $color-danger; }
+      }
+    }
+
+    .card-body {
+      .selection-label {
+        font-size: 0.8rem;
+        color: $text-secondary;
+        margin-bottom: 0.5rem;
+      }
+
+      .selected-option {
+        font-size: 1.1rem;
+        font-weight: 600;
+        line-height: 1.4;
+        color: $text-primary;
+
+        .empty-answer {
+          color: #666;
+          font-style: italic;
+        }
+      }
+    }
+  }
+}
+
+/* === LOADING & ERROR === */
+.result-loading, .result-error {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: $bg-dark;
+  color: $text-primary;
+  gap: 1rem;
+
+  .spinner-icon {
+    font-size: 3rem;
+    color: $color-info;
+    animation: spin 1s linear infinite;
+  }
+}
+
+.result-error {
+  color: $color-danger;
+  button {
+    margin-top: 1rem;
+    padding: 10px 24px;
+    background: $color-info;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .quiz-result-page {
+    padding: 1rem;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .answers-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .result-header h1 {
+    font-size: 1.6rem;
+  }
+}
+/* Thêm vào cuối file QuizResult.scss */
+
+.correction-area {
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px dashed rgba(255, 255, 255, 0.1);
+  
+  .correct-answer-box {
+    color: $color-success;
+    margin-bottom: 10px;
+  }
+}
+
+.btn-ask-ai {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(139, 92, 246, 0.4);
+  }
+
+  &:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+  }
+}
+
+.ai-explanation-box {
+  margin-top: 15px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(139, 92, 246, 0.3);
+  border-radius: 8px;
+  padding: 12px;
+  animation: fadeIn 0.5s ease;
+
+  .ai-header {
+    font-weight: bold;
+    color: #ffd700;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .ai-content {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #e2e8f0;
+    white-space: pre-line; /* Để xuống dòng đúng theo AI trả về */
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+/* --- Hiệu ứng xoay cho icon Loading --- */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.spinner-icon {
+  animation: spin 1s linear infinite; /* Xoay vô tận, đều đặn */
+  margin-right: 8px; /* Cách chữ ra một chút cho đẹp */
+}
+
+/* --- Style cho nút bấm khi đang Loading --- */
+.btn-ask-ai {
+  /* Các style cũ của bạn giữ nguyên, thêm đoạn dưới */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  transition: all 0.3s ease;
+
+  /* Khi nút bị disable (đang loading) */
+  &:disabled {
+    background-color: #ccc !important; /* Màu xám */
+    color: #666 !important;
+    border-color: #bbb !important;
+    cursor: not-allowed; /* Con trỏ chuột hiện dấu cấm */
+    opacity: 0.8;
+    transform: none; /* Không cho nút nảy lên khi hover */
+    box-shadow: none;
+  }
+}

@@ -1,0 +1,131 @@
+// Màu sắc chủ đạo
+$green-header: #198754; 
+$bg-color: #f3f6f9;     
+$tag-bg: #d1e7dd;       
+$tag-text: #0f5132;     
+$gold: #ffc107;         
+
+.part4-page {
+  background-color: $bg-color;
+  min-height: 100vh;
+  font-family: 'Inter', sans-serif;
+
+  // 1. Header
+  .part4-header {
+    background-color: $green-header;
+    padding: 15px 20px;
+    color: white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+
+    .header-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+
+      .back-btn {
+        color: white;
+        font-size: 1.2rem;
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        transition: opacity 0.2s;
+        
+        &:hover { opacity: 0.8; }
+      }
+
+      .header-title {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin: 0;
+      }
+    }
+  }
+
+  // 2. Container chính
+  .part4-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 50px 20px; // Padding rộng
+
+    .part4-grid {
+      display: grid;
+      // Card to và khoảng cách rộng
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); 
+      gap: 40px; 
+    }
+  }
+
+  // 3. Card bài học
+  .lesson-card {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 140px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    }
+
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+
+      .lesson-name {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: #333;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        .icon-crown {
+          color: $gold;
+          font-size: 1.1rem;
+        }
+      }
+
+      .icon-history {
+        color: #999;
+        font-size: 1.2rem;
+      }
+    }
+
+    .card-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      
+      .tag-format {
+        background-color: $tag-bg;
+        color: $tag-text;
+        padding: 6px 12px;
+        border-radius: 6px;
+        font-size: 0.85rem;
+        font-weight: 600;
+      }
+
+      .status {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        color: #666;
+        font-size: 0.9rem;
+
+        .icon-list {
+          font-size: 0.8rem;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,226 @@
+.create-quiz-part2-wrapper {
+    background-color: #f4f6f9; // Màu nền xám nhạt dịu mắt
+    min-height: 100vh;
+    padding-bottom: 60px;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+
+    // 1. Phần tiêu đề chính
+    h2 {
+        color: #2c3e50;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 30px;
+    }
+
+    // 2. Card thông tin chung (Quiz Info)
+    .card-info {
+        border: none;
+        border-radius: 12px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.04);
+        overflow: hidden;
+
+        .card-header {
+            background: linear-gradient(135deg, #0d6efd, #0a58ca);
+            color: white;
+            font-weight: 600;
+            padding: 15px 20px;
+            font-size: 1.1rem;
+        }
+
+        .form-label {
+            font-size: 0.9rem;
+            color: #495057;
+            margin-bottom: 5px;
+        }
+
+        .form-control, .form-select {
+            border-radius: 6px;
+            border: 1px solid #ced4da;
+            padding: 10px;
+            
+            &:focus {
+                border-color: #86b7fe;
+                box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+            }
+        }
+    }
+
+    // 3. Card câu hỏi (Questions List)
+    .card-question {
+        border: none;
+        border-radius: 10px;
+        background-color: #ffffff;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        transition: all 0.3s ease;
+        height: 100%; // Để các card cao bằng nhau trong row
+
+        &:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+        }
+
+        .card-header {
+            background-color: #f8f9fa;
+            border-bottom: 1px solid #edf2f7;
+            padding: 10px 15px;
+            border-radius: 10px 10px 0 0;
+            font-weight: 600;
+            color: #343a40;
+            font-size: 0.95rem;
+
+            .badge {
+                font-size: 0.75rem;
+                padding: 5px 8px;
+            }
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        // 4. Style đặc biệt cho 3 nút chọn đáp án A, B, C
+        .option-group {
+            display: flex;
+            justify-content: center;
+            gap: 20px; // Khoảng cách giữa các nút
+            margin: 15px 0 20px 0;
+
+            .option-btn {
+                width: 60px;
+                height: 50px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 8px;
+                font-weight: bold;
+                font-size: 1.2rem;
+                cursor: pointer;
+                border: 2px solid #e9ecef;
+                color: #6c757d;
+                background-color: #fff;
+                transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+                user-select: none;
+
+                // Hiệu ứng khi di chuột vào
+                &:hover {
+                    border-color: #adb5bd;
+                    background-color: #f8f9fa;
+                    transform: scale(1.05);
+                }
+
+                // TRẠNG THÁI ĐƯỢC CHỌN (Active)
+                &.active {
+                    background-color: #198754; // Màu xanh lá
+                    border-color: #198754;
+                    color: #fff;
+                    box-shadow: 0 4px 10px rgba(25, 135, 84, 0.3);
+                    transform: scale(1.1);
+                }
+            }
+        }
+
+        .explanation-input {
+            border: none;
+            border-bottom: 1px solid #ced4da;
+            border-radius: 0;
+            background-color: transparent;
+            font-size: 0.85rem;
+            color: #6c757d;
+            padding: 5px 0;
+
+            &:focus {
+                box-shadow: none;
+                border-bottom-color: #0d6efd;
+                color: #212529;
+            }
+
+            &::placeholder {
+                font-style: italic;
+                font-size: 0.8rem;
+                color: #adb5bd;
+            }
+        }
+    }
+
+    // 5. Nút Submit cuối trang
+    .btn-submit {
+        border-radius: 50px;
+        padding: 12px 30px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        transition: transform 0.2s;
+
+        &:active {
+            transform: scale(0.98);
+        }
+    }
+}
+.create-quiz-container {
+    background-color: #f5f7fb;
+    min-height: 100vh;
+    padding-bottom: 50px;
+
+    .card {
+        border: none;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        transition: transform 0.2s;
+
+        &:hover {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+    }
+
+    .card-header {
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    // Phần chọn đáp án (A, B, C, D)
+    .answer-selection {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        margin-top: 15px;
+        margin-bottom: 15px;
+
+        .btn-answer {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%; // Làm tròn giống ô tô trắc nghiệm
+            border: 2px solid #dee2e6;
+            background-color: white;
+            color: #6c757d;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 1.1rem;
+
+            &:hover {
+                background-color: #e9ecef;
+                border-color: #adb5bd;
+            }
+
+            // Khi được chọn (Active)
+            &.active {
+                background-color: #28a745; // Màu xanh dương chủ đạo
+                color: white;
+                border-color: #00913c;
+                box-shadow: 0 3px 8px rgba(13, 110, 253, 0.4);
+                transform: scale(1.1);
+            }
+        }
+    }
+
+    .static-text {
+        font-style: italic;
+        color: #6c757d;
+        font-size: 0.9rem;
+    }
+}
