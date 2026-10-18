@@ -88,6 +88,7 @@ import CreateFullTest from './components/Admin/Content/Quiz/CreateFullTest';
 import { SocketProvider } from './contexts/SocketContext';
 import { PaymentProvider } from './contexts/PaymentContext';
 import PaymentCallback from './components/payment/PaymentCallback';
+import PaymentFailed from './components/payment/PaymentFailed';
 import ManagePay from './components/Admin/adminPay/ManagePay';
 
 // SỬA LẠI INDEX.JS NHƯ SAU:
@@ -143,6 +144,7 @@ root.render(
 
                   {/* PAYMENT - THÊM Ở ĐÂY, NGOÀI ADMIN */}
                   <Route path="/payment-callback" element={<Authentication><PaymentCallback /></Authentication>} />
+                  <Route path="/payment-failed" element={<PaymentFailed />} />
 
                   {/* TOEIC */}
                   <Route path="/toeic-prep" element={<ToeicPage />} />

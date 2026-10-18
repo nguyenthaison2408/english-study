@@ -1,11 +1,13 @@
 
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import SideBar from "./SideBar";
 import { useAuth } from "../../hooks/useAuth";
 import UpdateProfileModal from "./UpdateProfileModal";
 import "./UserProfile.scss";
 
 export default function UserProfile() {
+  const navigate = useNavigate();
   const { user, updateProfile } = useAuth();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -67,8 +69,8 @@ export default function UserProfile() {
             <button className="update-btn beautiful-btn" onClick={() => setIsModalOpen(true)}>
   <i className="fa-solid fa-user-pen"></i> Cập nhật thông tin
 </button>
-            <button className="upgrade-btn">
-              <i className="fa-solid fa-crown"></i> Nâng Cấp
+            <button className="upgrade-btn" onClick={() => navigate('/exams')}>
+              <i className="fa-solid fa-crown"></i> Nâng Cấp VIP
             </button>
           </div>
         </header>

@@ -1,6 +1,7 @@
 {
-  "name": "base-react-redux",
-  "version": "0.1.0",
+  "name": "english-learning-frontend",
+  "version": "1.0.0",
+  "author": "Nguyễn Thái Sơn <nguyenthaison2408@gmail.com>",
   "private": true,
   "dependencies": {
     "@google/generative-ai": "^0.24.1",

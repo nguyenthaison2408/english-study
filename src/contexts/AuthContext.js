@@ -59,7 +59,12 @@ export const AuthProvider = ({ children }) => {
         setUser(userData);
         setIsAuthenticated(true);
 
-        return { success: true };
+        return {
+  success: true,
+  data: {
+    user: userData
+  }
+};
       }
 
       return { success: false, error: 'Đăng ký thất bại' };
@@ -72,22 +77,27 @@ export const AuthProvider = ({ children }) => {
   };
 
   const login = async (credentials) => {
-    try {
-      const response = await authService.login(credentials);
+  try {
+    const response = await authService.login(credentials);
 
-      if (!response.token) {
-        return { success: false, error: 'Không nhận được token' };
+    if (!response.token) {
+      return { success: false, error: 'Không nhận được token' };
+    }
+
+    authService.saveToken(response.token);
+    setToken(response.token);
+
+    const userData = await authService.getCurrentUserFromAPI();
+    authService.saveUser(userData);
+    setUser(userData);
+    setIsAuthenticated(true);
+
+    return {
+      success: true,
+      data: {
+        user: userData
       }
-
-      authService.saveToken(response.token);
-      setToken(response.token);
-
-      const userData = await authService.getCurrentUserFromAPI();
-      authService.saveUser(userData);
-      setUser(userData);
-      setIsAuthenticated(true);
-
-      return { success: true };
+    };
     } catch (error) {
       return {
         success: false,

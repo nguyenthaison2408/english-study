@@ -37,10 +37,25 @@ const VocabularyModal = ({ word, onClose }) => {
     return { usAudio, ukAudio, mainAudio };
   };
 
-  const playAudio = (audioUrl) => {
+  const speakText = (text, lang = 'en-US') => {
+    if ('speechSynthesis' in window && text) {
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = lang;
+      utterance.rate = 0.9;
+      window.speechSynthesis.speak(utterance);
+    }
+  };
+
+  const playAudio = (audioUrl, lang = 'en-US') => {
     if (audioUrl) {
       const audio = new Audio(audioUrl);
-      audio.play().catch(e => console.log("Audio play failed:", e));
+      audio.play().catch(e => {
+        console.log("Audio play failed, falling back to Web Speech:", e);
+        speakText(word.word, lang);
+      });
+    } else {
+      speakText(word.word, lang);
     }
   };
 
@@ -88,27 +103,27 @@ const VocabularyModal = ({ word, onClose }) => {
         </div>
 
         {/* Phát âm và audio */}
-        {(phonetics || hasAudio) && (
-          <div className="pronunciation-section">
-            {phonetics?.usPhonetic && (
-              <div className="pron-item" onClick={() => playAudio(usAudio || mainAudio)}>
-                🔊 US /{phonetics.usPhonetic}/
-              </div>
-            )}
-            
-            {phonetics?.ukPhonetic && (
-              <div className="pron-item" onClick={() => playAudio(ukAudio || mainAudio)}>
-                🔊 UK /{phonetics.ukPhonetic}/
-              </div>
-            )}
-            
-            {!phonetics?.usPhonetic && !phonetics?.ukPhonetic && mainAudio && (
-              <div className="pron-item" onClick={() => playAudio(mainAudio)}>
-                🔊 Phát âm
-              </div>
-            )}
-          </div>
-        )}
+        <div className="pronunciation-section">
+          {phonetics?.usPhonetic ? (
+            <div className="pron-item" onClick={() => playAudio(usAudio || mainAudio, 'en-US')}>
+              🔊 US /{phonetics.usPhonetic}/
+            </div>
+          ) : (
+            <div className="pron-item" onClick={() => speakText(word.word, 'en-US')}>
+              🔊 Phát âm US
+            </div>
+          )}
+          
+          {phonetics?.ukPhonetic ? (
+            <div className="pron-item" onClick={() => playAudio(ukAudio || mainAudio, 'en-GB')}>
+              🔊 UK /{phonetics.ukPhonetic}/
+            </div>
+          ) : (
+            <div className="pron-item" onClick={() => speakText(word.word, 'en-GB')}>
+              🔊 Phát âm UK
+            </div>
+          )}
+        </div>
 
         <div className="modal-scroll-content">
           {/* Action buttons */}
